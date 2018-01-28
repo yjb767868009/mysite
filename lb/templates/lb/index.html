@@ -1,0 +1,9 @@
+{% if best_envir_list %}
+    <ul>
+    {% for environment in best_envir_list %}
+        <li><a href="/lb/{{ environment.id }}/">{{ environment.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
