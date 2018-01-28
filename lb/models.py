@@ -17,9 +17,8 @@ class User(AbstractUser):
     signature = models.CharField(max_length=100,blank=True)
     title = models.CharField(max_length=100,blank=True)
     department = models.CharField(max_length=100,blank=True)
-    reg_time = models.DateTimeField()
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return self.username
 
 @python_2_unicode_compatible
 class Environment(models.Model):

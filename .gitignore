@@ -1,0 +1,4 @@
+# Python:
+db.sqlite3
+lb/migrations/*
+
