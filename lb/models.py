@@ -29,6 +29,8 @@ class Environment(models.Model):
     solved = models.CharField(max_length=10)
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)
+    pub_date = models.DateTimeField()
+    join_nb =  models.IntegerField(default=0)
     def __str__(self):
         return self.name
 
