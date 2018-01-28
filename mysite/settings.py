@@ -84,6 +84,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'lb.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

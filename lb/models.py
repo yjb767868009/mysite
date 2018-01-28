@@ -1,7 +1,9 @@
 import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.auth.models import AbstractUser
 
 @python_2_unicode_compatible
 class Category(models.Model):
@@ -11,13 +13,11 @@ class Category(models.Model):
         return self.name
 
 @python_2_unicode_compatible
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    signature = models.CharField(max_length=100)
-    title = models.CharField(max_length=100)
+class User(AbstractUser):
+    signature = models.CharField(max_length=100,blank=True)
+    title = models.CharField(max_length=100,blank=True)
+    department = models.CharField(max_length=100,blank=True)
     reg_time = models.DateTimeField()
-    department = models.CharField(max_length=100)
-    website = models.URLField()
     def __str__(self):
         return self.name
 
