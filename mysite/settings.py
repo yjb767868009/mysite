@@ -15,12 +15,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.sendcloud.net'
-EMAIL_HOST_USER = 'admin'
-EMAIL_HOST_PASSWORD = '404@software'
-EMAIL_POST = 25
-DEFAULT_FROM_EMAIL = 'XMU404<404@xmu.com>'
+EMAIL_HOST = 'smtpdm.aliyun.com'
+EMAIL_HOST_USER = 'administrator@control-net.org'
+EMAIL_HOST_PASSWORD = '404SoftWare'
+EMAIL_USE_SSL = True
+EMAIL_POST = 465
+DEFAULT_FROM_EMAIL = 'administrator <administrator@control-net.org>'
+EMAIL_TIMEOUT = 10
 
 # Application definition
 
