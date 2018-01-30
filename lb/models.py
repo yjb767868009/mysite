@@ -56,10 +56,10 @@ class Environment(models.Model):
 @python_2_unicode_compatible
 class Submission(models.Model):
     name = models.CharField(max_length=100)
-    des = models.TextField()
+    description = RichTextUploadingField()
     sub_date = models.DateTimeField()
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    envir = models.ForeignKey(Environment,on_delete=models.CASCADE)
+    environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 

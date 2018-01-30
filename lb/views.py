@@ -34,10 +34,27 @@ def environment_detail(request,pk):
     passing_line = environment.passing_line
     pub_date = environment.pub_date
     join_nb = environment.join_nb
-    return render(request,'lb/environment_detail.html',context={'environment':environment,'short_des':short_des,'long_des':long_des,'passing_line':passing_line,'pub_date':pub_date,'join_nb':join_nb})
+    category_list = enviironment.category.all()
+    submission_list = environment.submission.all()
+    return render(request,'lb/environment_detail.html',context={'environment':environment,
+                                                                'short_des':short_des,
+                                                                'long_des':long_des,
+                                                                'passing_line':passing_line,
+                                                                'pub_date':pub_date,
+                                                                'join_nb':join_nb,
+                                                                'category_list':category_list,
+                                                                'submission_list':submission_list})
 
-def submission(request):
-    return HttpResponse("This is submission")
+def submission(request,pk):
+    submission = get_object_or_404(Environment, pk=pk)
+    description = submission.des
+    sub_date = submission.sub_date
+    user = submission.user
+    environment = submission.environment
+    return render(request,'lb/submission.html',context={'description':description,
+                                                        'sub_date':sub_date,
+                                                        'user':user,
+                                                        'environment':environment,})
 
 
 
