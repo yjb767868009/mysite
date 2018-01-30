@@ -4,6 +4,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import AbstractUser
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
+
 
 @python_2_unicode_compatible
 class Category(models.Model):
@@ -17,7 +20,10 @@ class User(AbstractUser):
     signature = models.CharField(max_length=100,blank=True)
     title = models.CharField(max_length=100,blank=True)
     department = models.CharField(max_length=100,blank=True)
-    def __unicode__(self):
+    avatar = ProcessedImageField(upload_to='avatar',
+                                 default='avatar/default.png', 
+                                 processors=[ResizeToFill(85,85)],)
+    def __str__(self):
         return self.username
 
 @python_2_unicode_compatible

@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="environment" style="border: 1px solid silver;border-radius: 5px;font-size: 1.15em">
+  <div class="post_info">
+    <li>
+      <span><h3><a href="#">{{ environment.name }}</a></h3></span>
+    </li>
+    <li style="padding-top: 0.5em">
+      <span>pub date:{{ environment.pub_date }}&nbsp;&nbsp;</span>
+      <span>passing line:{{ environment.passing_line }}</span>
+      <span class="pull-right">The number of participants:({{ environment.join_nb }})</span>
+    </li>
+  </div>
+  <p>{{ enivonment.description }}</p>
+</div>
+{% endblock content %}

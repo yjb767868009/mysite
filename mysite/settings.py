@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.github',
+
+    'crispy_forms',
+    'imagekit',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -72,11 +77,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # allauth templates: you could copy this directory into your
-            # project and tweak it according to your needs
-            # os.path.join(BASE_DIR, 'templates', 'uniform', 'allauth'),
-            # example project specific templates
-            os.path.join(BASE_DIR, 'templates', 'plain', 'example'),
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
