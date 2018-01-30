@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    envir_list = Environment.objects.all()
-    return render(request, 'lb/index.html', context={'envir_list': envir_list})
+    environment_list = Environment.objects.all()
+    return render(request, 'lb/index.html', context={'environment_list': environment_list})
 
 @login_required
 def account_profile(request):
@@ -31,8 +31,8 @@ def environment_detail(request,pk):
     environment.click_increase()
     description = environment.long_des
     passing_line = environment.passing_line
-    pub_date = envir.pubdate
-    return render(request,'lb/environment_detail.html',context={'environment'=environment,'description'=description,'passing_line'=passing_line,'pubdate'=pubdate})
+    pub_date = environment.pub_date
+    return render(request,'lb/environment_detail.html',context={'environment':environment,'description':description,'passing_line':passing_line,'pub_date':pub_date})
 
 def submission(request):
     return HttpResponse("This is submission")

@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -36,8 +38,17 @@ class Environment(models.Model):
     category = models.ManyToManyField(Category)
     pub_date = models.DateTimeField()
     join_nb =  models.IntegerField(default=0)
+    click_count = models.PositiveIntegerField(default=0)
+
     def __str__(self):
         return self.name
+
+    def click_increase(self):
+        self.click_count += 1
+        self.save(update_fields=['click_count'])
+
+    def get_absolute_url(self):
+        return reverse('lb:environment_detail', kwargs={'pk':self.pk})
 
 
 @python_2_unicode_compatible

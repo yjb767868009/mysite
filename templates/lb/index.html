@@ -2,10 +2,10 @@
 {% load staticfiles %}
 
 {% block content %}
- {% for envir in envir_list %}
-  <div class = "envir">
-   <h3>{{ envir.name }}</h3>
-   <p style="color: #666666">{{ post.short_des }}</p>
+ {% for environment in environment_list %}
+  <div class = "environment">
+   <h3><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h3>
+   <p style="color: #666666">{{ environment.short_des }}</p>
   </div> 
   {% empty  %}
    <p>no environment</p>
