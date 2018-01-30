@@ -53,6 +53,8 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,4 +1,5 @@
 # Python:
 db.sqlite3
-lb/migrations/*
+lb/migrations/
+lb/migrations/__pycache__/
 
