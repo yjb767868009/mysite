@@ -6,6 +6,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -32,7 +34,7 @@ class User(AbstractUser):
 class Environment(models.Model):
     name = models.CharField(max_length=100)
     short_des = models.CharField(max_length=200)
-    long_des = models.TextField()
+    long_des = RichTextUploadingField()
     solved = models.CharField(max_length=10)
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)

@@ -1,10 +1,10 @@
-{% enxtend 'account/base.html' %}
+{% extends 'account/base.html' %}
 {% load crispy_forms_tags %}
 
 {% block account_profile %}
     <div class="local-header"><h4>personal information</h4></div>              
     <form class="profile" method="post" enctype="multipart/form-data"               
-        action="{% url 'blog:account_profile' %}">
+        action="{% url 'lb:account_profile' %}">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="avatar">

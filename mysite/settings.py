@@ -15,6 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# email
 EMAIL_HOST = 'smtpdm.aliyun.com'
 EMAIL_HOST_USER = 'administrator@control-net.org'
 EMAIL_HOST_PASSWORD = '404SoftWare'
@@ -38,12 +39,77 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.github',
+
+    'ckeditor',
+    'ckeditor_uploader',
 
     'crispy_forms',
     'imagekit',
 ]
+
+# media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = 'upload/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_RESTRICT_BY_DATE = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+'''
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'language':'en-us',
+        'width': '750px',
+        'height': '500px',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'basicstyles',
+                'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',
+                       '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor', '-', 'RemoveFormat']},
+            {'name': 'insert',
+             'items': ['Image', '-', 'Flash', 'Iframe', '-', 'Table', 'CodeSnippet', 'Templates']},
+            '/',
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'styles', 'items': ['Format', 'Font', 'FontSize']},
+            {'name': 'special', 'items': ['Subscript', 'Superscript', '-', 'HorizontalRule',
+                                          'SpecialChar', 'Smiley']},
+            {'name': 'tools', 'items': ['Undo', 'Redo', '-', 'Source', 'Preview', 'Save', '-', 'Maximize']}
+        ],
+        'toolbar': 'YourCustomToolbarConfig',
+        'image_previewText':' ',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join(
+            [
+                'div',
+                'autolink',
+                'autoembed',
+                'embedsemantic',
+                'autogrow',
+                'widget',
+                'lineutils',
+                'clipboard',
+                'dialog',
+                'dialogui',
+                'elementspath',
+                'codesnippet',
+                'uploadimage',
+                'uploadfile',
+                'prism',
+            ]),
+    },
+}
+'''
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 

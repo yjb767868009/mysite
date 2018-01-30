@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.conf.urls import url,include
+from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 admin.autodiscover()
 
@@ -22,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('lb.urls')),
     url(r'^accounts/',include('allauth.urls')),
+    url(r'', include('ckeditor_uploader.urls')),
     # url(r'^accounts/profile/$', views.account_profile, name='account_profile'),
     # url(r'^accounts/profile/$', TemplateView.as_view(template_name='profile.html')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

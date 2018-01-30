@@ -29,10 +29,12 @@ def account_profile(request):
 def environment_detail(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     environment.click_increase()
-    description = environment.long_des
+    short_des = environment.short_des
+    long_des = environment.long_des
     passing_line = environment.passing_line
     pub_date = environment.pub_date
-    return render(request,'lb/environment_detail.html',context={'environment':environment,'description':description,'passing_line':passing_line,'pub_date':pub_date})
+    join_nb = environment.join_nb
+    return render(request,'lb/environment_detail.html',context={'environment':environment,'short_des':short_des,'long_des':long_des,'passing_line':passing_line,'pub_date':pub_date,'join_nb':join_nb})
 
 def submission(request):
     return HttpResponse("This is submission")
