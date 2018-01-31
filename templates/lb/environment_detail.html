@@ -14,8 +14,25 @@
       <span>passing line:{{ environment.passing_line }}</span>
       <span class="pull-right">The number of participants:({{ environment.join_nb }})</span>
     </li>
+    <li>
+      <span>
+         category:
+         {% for category in category_list %}
+           <a href="#">{{ category.name }}</a>
+         {% endfor %}
+       </span>
+    </li>
+    <li>
+      <span>
+        total submission:
+        {% for submission in submission_list %}
+          <a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}&nbsp;&nbsp;</a>
+        {% endfor %}
+      </span>
+    </li>
   </div>
-  <p>{{ enivonment.long_des|safe }}</p>
+  <p>{{ environment.long_des|safe }}</p>
   <p></p>
 </div>
 {% endblock content %}
+

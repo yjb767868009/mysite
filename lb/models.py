@@ -29,6 +29,20 @@ class User(AbstractUser):
                                  processors=[ResizeToFill(85,85)],)
     def __str__(self):
         return self.username
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = verbose_name
+        ordering = ['-id']
+    def save(self, *args, **kwargs):
+        if len(self.avatar.name.split('/')) == 1:
+            self.avatar.name = self.username + '/' + self.avatar.name
+        super(User, self).save()
+    def get_avatar_url(self):
+        url = self.avatar.url
+        file_name = url.split('/')[-1]
+        if self.socialaccount_set.exists() and file_name == 'default.png':
+            url = self.socialaccount_set.first().get_avatar_url()
+        return url
 
 @python_2_unicode_compatible
 class Environment(models.Model):

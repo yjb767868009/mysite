@@ -24,6 +24,8 @@ EMAIL_POST = 465
 DEFAULT_FROM_EMAIL = 'administrator <administrator@control-net.org>'
 EMAIL_TIMEOUT = 10
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'lb',
+    
+    'mptt',
+    # 'django_comments'
 
+    # 'notifications',
+    # 'online_status',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -47,6 +55,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'imagekit',
 ]
+
+#commit
+#COMMENT_ENTRY_MODEL = 'lb.environment'
+#AUTH_USER_MODEL = 'lb.user'
 
 # media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

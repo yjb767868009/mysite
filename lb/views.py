@@ -7,6 +7,7 @@ from .models import *
 from .forms import UserDetailForm
 from django.contrib.auth.decorators import login_required
 
+logger = logging.getLogger('lb.views')
 
 def index(request):
     environment_list = Environment.objects.all()
@@ -16,9 +17,7 @@ def index(request):
 def account_profile(request):
     messages = []
     if request.method == 'POST':
-        #request_dic = getattr(request, 'POST')
-        #print(request_dic)
-        #print(request.FILES)
+        request_dic = getattr(request, 'POST')
         form = UserDetailForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
@@ -34,8 +33,8 @@ def environment_detail(request,pk):
     passing_line = environment.passing_line
     pub_date = environment.pub_date
     join_nb = environment.join_nb
-    category_list = enviironment.category.all()
-    submission_list = environment.submission.all()
+    category_list = environment.category.all()
+    submission_list = Submission.objects.filter(environment=environment)
     return render(request,'lb/environment_detail.html',context={'environment':environment,
                                                                 'short_des':short_des,
                                                                 'long_des':long_des,
@@ -46,12 +45,13 @@ def environment_detail(request,pk):
                                                                 'submission_list':submission_list})
 
 def submission(request,pk):
-    submission = get_object_or_404(Environment, pk=pk)
-    description = submission.des
+    submission = get_object_or_404(Submission, pk=pk)
+    description = submission.description
     sub_date = submission.sub_date
     user = submission.user
     environment = submission.environment
-    return render(request,'lb/submission.html',context={'description':description,
+    return render(request,'lb/submission.html',context={'submission':submission,
+                                                        'description':description,
                                                         'sub_date':sub_date,
                                                         'user':user,
                                                         'environment':environment,})

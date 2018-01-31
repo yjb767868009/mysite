@@ -1,7 +1,7 @@
 {% extends 'account/base.html' %}
 {% load crispy_forms_tags %}
-
-{% block account_profile %}
+<p>account profile</p>
+{% block content %}
     <div class="local-header"><h4>personal information</h4></div>              
     <form class="profile" method="post" enctype="multipart/form-data"               
         action="{% url 'lb:account_profile' %}">
@@ -12,5 +12,5 @@
         </div>
         <button class="primaryAction" type="submit">new information</button>
     </form>
-{% endblock account_profile %}
+{% endblock %}
 

@@ -1,0 +1,19 @@
+{% extends 'lb/base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="submission" style="border: 1px solid silver;border-radius: 5px;font-size: 1.15em">
+    <div class="submission_info">
+      <ul>
+        <li>
+          <span><h3><a href="#">{{ submission.name }}</a></h3></span>
+        </li>
+        <li style="padding-top: 0.5em">
+          <span>submission date:{{ submission.sub_date }}</span>
+          <span>user:{{ submission.user }}</span>
+          <span>environment:{{ submission.environment }}</span>
+        </li>
+      </ul>
+    </div>
+      <p>{{ submission.description|safe }}</p>
+  </div>
+{% endblock content %}
