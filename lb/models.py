@@ -49,23 +49,20 @@ class Environment(models.Model):
     name = models.CharField(max_length=100)
     short_des = models.CharField(max_length=200)
     long_des = RichTextUploadingField()
-    solved = models.CharField(max_length=10)
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)
     pub_date = models.DateTimeField()
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
-
+    best_submission = models.IntegerField(default=0)
+    solved = models.Bool(default=False)
     def __str__(self):
         return self.name
-
     def click_increase(self):
         self.click_count += 1
         self.save(update_fields=['click_count'])
-
     def get_absolute_url(self):
         return reverse('lb:environment_detail', kwargs={'pk':self.pk})
-
 
 @python_2_unicode_compatible
 class Submission(models.Model):
@@ -74,6 +71,7 @@ class Submission(models.Model):
     sub_date = models.DateTimeField()
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
+    score = model.IntegerField(default=0)
     def __str__(self):
         return self.name
 
