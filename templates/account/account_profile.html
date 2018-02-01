@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 <p>account profile</p>
 {% block content %}
-    <div class="local-header"><h4>personal information</h4></div>              
+    <div><h4>personal information</h4></div>              
     <form class="profile" method="post" enctype="multipart/form-data"               
         action="{% url 'lb:account_profile' %}">
         {% csrf_token %}
@@ -10,7 +10,8 @@
         <div class="avatar">
             <img class="img-rounded" src="{{ request.user.avatar.url }}">
         </div>
-        <button class="primaryAction" type="submit">new information</button>
+        <button type="button" class="btn btn-primary" type="submit">SAVE</button>
+	<button type="button" class="btn" href="{% url 'lb:account_detail' %}">CANCEL</button>
     </form>
 {% endblock %}
 

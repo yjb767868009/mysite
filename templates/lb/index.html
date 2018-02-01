@@ -5,13 +5,14 @@
 	<ul class="list-group">
  		{% for environment in environment_list %}
 			<div class="list-group-item">
-				<div class="media">
-					<a class="media-left" href="#">
-						<img class="media-object" src="/environment/1.png" alt="media">
+				<div >
+					<a class="float-left" href="{{ environment.get_absolute_url }}">
+						<div class="img-thumbnail"><img class="media-object" src="{{environment.images.url}}" alt="media" width="100" height="100"></div>
 					</a>
-					<div class="media-body">
-						<h4 class="media-heading"><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h4>
+					<div>
+						<h3><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h3>
 						<p style="color: #666666">{{ environment.short_des }}</p>
+						<span class="badge badge-secondary">solved</span>
 					</div>
 				</div>
 			</div>

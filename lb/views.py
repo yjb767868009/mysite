@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage
 from .models import *
-from .forms import UserDetailForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger('lb.views')
@@ -23,7 +23,23 @@ def account_profile(request):
             form.save()
             messages.append('successed change!')
     form = UserDetailForm(instance=request.user)
-    return render(request, 'account/user_detail.html', context={'form':form,'messages':messages,})
+    return render(request, 'account/account_profile.html', context={'form':form,'messages':messages,})
+
+@login_required
+def account_detail(request):
+    user = request.user
+    avatar = user.avatar
+    username = user.username
+    signature = user.signature
+    title = user.title
+    department = user.department
+    submission_list = Submission.objects.filter(user=user)
+    return render(request, 'account/account_detail.html', context={'user':user,
+                                                                'avatar':avatar,
+                                                                'signature':signature,
+                                                                'title':title,
+                                                                'department':department,
+                                                                'submission_list':submission_list})
 
 def environment_detail(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
@@ -35,7 +51,10 @@ def environment_detail(request,pk):
     join_nb = environment.join_nb
     category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
-    return render(request,'lb/environment_detail.html',context={'environment':environment,
+    images = environment.images
+    return render(request,'lb/environment_detail.html',context={
+                                                                'images':images,
+                                                                'environment':environment,
                                                                 'short_des':short_des,
                                                                 'long_des':long_des,
                                                                 'passing_line':passing_line,

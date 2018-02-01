@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>{% block head_title %}{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     {% block extra_head %}
     {% endblock %}
   </head>
   <body>
+  <div class="container">
     {% block body %}
 
     {% if messages %}
@@ -22,36 +25,35 @@
     </div>
     {% endif %}
 
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">caffe</a>
-        </div>
-        <div>
-          <ul class="nav navbar-nav">
-            <li><a href="#">Environment</a></li>
-            <li><a href="#">Submission</a></li>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+	<a class="navbar-brand" href="/">Logo</a>
+	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    		<span class="navbar-toggler-icon"></span>
+  	</button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#">Environment</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Submission</a></li>
             {% if user.is_authenticated %}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                User
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbardrop">
+                <img class="img-rounded" src="{{ user.avatar.url }}" class="img-fluid" width="50" height="50">
                 <b class="caret"></b>
               </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Message</a></li>
-                <li class="divider"></li>
-                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+              <ul class="dropdown-menu bg-light">
+		<a class="dropdown-item" href="{% url 'lb:account_detail' %}">{{user.username}}</a>
+                <a class="dropdown-item" href="{% url 'lb:account_profile' %}">Profile</a>
+                <a class="dropdown-item" href="#">Account Setting</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
               </ul>
             </li>
             {% else %}
-            <li><a href="{% url 'account_login' %}">Sign In</a></li>
-            <li><a href="{% url 'account_signup' %}">Sign UP</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Sign In</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Sign UP</a></li>
             {% endif %}
           </ul>
         </div>
-      </div>
     </nav>
 
     {% block content %}
@@ -59,5 +61,6 @@
     {% endblock %}
     {% block extra_body %}
     {% endblock %}
+  </div>
   </body>
 </html>
