@@ -2,17 +2,18 @@
 <html>
   <head>
     <title>{% block head_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% block extra_head %}
     {% endblock %}
   </head>
   <body>
     {% block body %}
 
-    <em>Important: Authentication via OAuth based providers will not work until you <a href="/admin/socialaccount/socialapp/">setup proper applicaton credentials</a>.</em>
-
     {% if messages %}
-    <div>
-      <strong>Messages:</strong>
+    <div class="alert alert-success">
       <ul>
 	{% for message in messages %}
 	<li>{{message}}</li>
@@ -21,18 +22,38 @@
     </div>
     {% endif %}
 
-    <div>
-      <strong>MENU:</strong>
-      <ul>
-	{% if user.is_authenticated %}
-	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-	{% else %}
-	<li><a href="{% url 'account_login' %}">Sign In</a></li>
-	<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-	{% endif %}
-      </ul>
-    </div>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">caffe</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+            <li><a href="#">Environment</a></li>
+            <li><a href="#">Submission</a></li>
+            {% if user.is_authenticated %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                User
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Message</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+              </ul>
+            </li>
+            {% else %}
+            <li><a href="{% url 'account_login' %}">Sign In</a></li>
+            <li><a href="{% url 'account_signup' %}">Sign UP</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     {% block content %}
     {% endblock %}
     {% endblock %}

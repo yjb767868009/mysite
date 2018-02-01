@@ -1,13 +1,22 @@
-{% extends "base.html" %}
+{% extends "lb/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
- {% for environment in environment_list %}
-  <div class = "environment">
-   <h3><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h3>
-   <p style="color: #666666">{{ environment.short_des }}</p>
-  </div> 
-  {% empty  %}
-   <p>no environment</p>
- {% endfor %}
+	<ul class="list-group">
+ 		{% for environment in environment_list %}
+			<div class="list-group-item">
+				<div class="media">
+					<a class="media-left" href="#">
+						<img class="media-object" src="/environment/1.png" alt="media">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading"><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h4>
+						<p style="color: #666666">{{ environment.short_des }}</p>
+					</div>
+				</div>
+			</div>
+		{% empty  %}
+			<h2>no environment</h2>
+		{% endfor %}
+	</ul>
 {% endblock content%}

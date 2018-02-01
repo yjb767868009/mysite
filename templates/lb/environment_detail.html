@@ -1,38 +1,68 @@
 {% extends 'lb/base.html' %}
 {% load staticfiles %}
 {% block content %}
-<div class="environment" style="border: 1px solid silver;border-radius: 5px;font-size: 1.15em">
-  <div class="post_info">
-    <li>
-      <span><h3><a href="#">{{ environment.name }}</a></h3></span>
-    </li>
-    <li>
-      <span>{{environment.short_des}}</span>
-    </li>
-    <li style="padding-top: 0.5em">
-      <span>pub date:{{ environment.pub_date }}&nbsp;&nbsp;</span>
-      <span>passing line:{{ environment.passing_line }}</span>
-      <span class="pull-right">The number of participants:({{ environment.join_nb }})</span>
-    </li>
-    <li>
-      <span>
-         category:
-         {% for category in category_list %}
-           <a href="#">{{ category.name }}</a>
-         {% endfor %}
-       </span>
-    </li>
-    <li>
-      <span>
-        total submission:
-        {% for submission in submission_list %}
-          <a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}&nbsp;&nbsp;</a>
-        {% endfor %}
-      </span>
-    </li>
-  </div>
-  <p>{{ environment.long_des|safe }}</p>
-  <p></p>
+
+<div class="center-block" style="width:1000px;border: 1px solid silver;border-radius: 5px;font-size: 1.15em"> 
+        <div class="media">
+                <a class="media-left"  href="#">    
+                        <img class="media-object" src="/wp-content/uploads/2014/06/64.jpg" alt="image">
+                </a>
+        		<div class="media-body">
+                		<h1 class="media-heading">{{ environment.name }}</h1>
+                		<p>{{environment.short_des}}</p>
+                		<p class="text-muted">passing line:{{ environment.passing_line }}</p>
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+								<span class="sr-only">40% ??</span>
+    						</div>
+						</div>
+						<div class="pull-right">
+							<div class="panel panel-default" style="width:100px">
+								<div class="panel-heading"><small class="text-muted">Participants:</small></div>
+								<div class="panel--body"><small class="text-muted">{{ environment.join_nb }}</small></div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="panel panel-default" style="width:100px">
+								<div class="panel-heading"><small class="text-muted">Pub date:</small></div>
+								<div class="panel--body"><small class="text-muted">{{ environment.pub_date }}</small></div>
+							</div>
+						</div>
+						<p class="text-muted">sloved</p>
+        		</div>
+		</div>
 </div>
+<div class="center-block" style="width:1000px;border: 0px solid silver;border-radius: 5px;font-size: 1.15em">
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Overview</a></li>
+    <li><a data-toggle="tab" href="#menu1">Leaderboard</a></li>
+    <li><a data-toggle="tab" href="#menu2">Discussion</a></li>
+    <li><a data-toggle="tab" href="#menu3">Category</a></li>
+</ul>
+	<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Overview</h3>
+      <p>{{ environment.long_des|safe }}</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+    	<h3>Leaderboard</h3>
+    	{% for submission in submission_list %}
+        	<a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}</a>
+        {% endfor %}
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Discussion</h3>
+      <p>Discussion</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Category</h3>
+		{% for category in category_list %}
+			 <a href="#">{{ category.name }}</a>
+		{% endfor %}
+    </div>
+  </div>
+</div>
+
+
 {% endblock content %}
 
