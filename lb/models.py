@@ -55,7 +55,7 @@ class Environment(models.Model):
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
     best_submission = models.IntegerField(default=0)
-    solved = models.Bool(default=False)
+    solved = models.BooleanField(default=False)
     def __str__(self):
         return self.name
     def click_increase(self):
@@ -71,7 +71,7 @@ class Submission(models.Model):
     sub_date = models.DateTimeField()
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
-    score = model.IntegerField(default=0)
+    score = models.IntegerField(default=0)
     def __str__(self):
         return self.name
 
