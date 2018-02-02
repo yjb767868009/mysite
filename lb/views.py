@@ -9,8 +9,21 @@ from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger('lb.views')
 
+def global_setting(request):
+    return {'SITE_NAME':settings.SITE_NAME,'STIE_DESCP':settings.SITE_DESCP,'SITE_KEYWORDS':settings.SITE_KEYWORDS}
+
+def get_page(request,environment_list):
+    paginator = Paginator(environment_list,5)
+    page = request.GET.get('page',1)
+    try:
+        environment_list = paginator.page(page)
+    except(EmptyPage, PageNotAnInteger, InvalidPage):
+        environment_list = paginator.page(1)
+    return environment_list
+
 def index(request):
     environment_list = Environment.objects.all()
+    environment_list = get_page(request,environment_list)
     return render(request, 'lb/index.html', context={'environment_list': environment_list})
 
 @login_required
@@ -34,14 +47,16 @@ def account_detail(request):
     title = user.title
     department = user.department
     submission_list = Submission.objects.filter(user=user)
+    environment_list = Environment.objects.filter(user=user)
     return render(request, 'account/account_detail.html', context={'user':user,
                                                                 'avatar':avatar,
                                                                 'signature':signature,
                                                                 'title':title,
                                                                 'department':department,
-                                                                'submission_list':submission_list})
+                                                                'submission_list':submission_list,
+                                                                'environment_list':environment_list})
 
-def environment_detail(request,pk):
+def environment(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     environment.click_increase()
     short_des = environment.short_des
@@ -51,17 +66,18 @@ def environment_detail(request,pk):
     join_nb = environment.join_nb
     category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
+    user_list = environment.user.all()
     images = environment.images
-    return render(request,'lb/environment_detail.html',context={
+    return render(request,'lb/environment.html',context={'environment':environment,
                                                                 'images':images,
-                                                                'environment':environment,
                                                                 'short_des':short_des,
                                                                 'long_des':long_des,
                                                                 'passing_line':passing_line,
                                                                 'pub_date':pub_date,
                                                                 'join_nb':join_nb,
                                                                 'category_list':category_list,
-                                                                'submission_list':submission_list})
+                                                                'submission_list':submission_list,
+                                                                'user_list':user_list})
 
 def submission(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
@@ -75,5 +91,14 @@ def submission(request,pk):
                                                         'user':user,
                                                         'environment':environment,})
 
-
-
+@login_required
+def submit(request):
+    messages = []
+    if request.method == 'POST':
+        request_dic = getattr(request, 'POST')
+        form = SubmissionForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.append('successed submit!')
+    form = SubmissionForm()
+    return render(request, 'lb/submit.html', context={'form':form,'messages':messages,})

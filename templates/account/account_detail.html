@@ -23,10 +23,26 @@
 		<h3>About</h3>
 		<p>{{ user.about|safe }}</p>
 	</div>
-    <div id="menu1" class="container tab-pane fade">
-    	<h3>Environment</h3>
-    </div>
-	 <div id="menu2" class="container tab-pane fade">
+	<div id="menu1" class="container tab-pane fade">
+		<h3>Environment</h3>
+		<table class="table table-hover">
+		 <thead>
+			<tr>
+				<th>Images</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		{% for environment in environment_list %}
+		<tbody>
+			<td><img class="img-thumbnail" src="{{environment.images.url}}"  alt="images" style="height:100px" ></td>
+			<td><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></td>
+			<td>{{ environment.short_des }}</td>
+		</tbody>
+		{% endfor %}
+		</table>
+	</div>
+	<div id="menu2" class="container tab-pane fade">
 		<h3>Submission</h3>
 		<table class="table table-hover">
 		 <thead>
@@ -37,14 +53,14 @@
 				<th>Submission date</th>
 			</tr>
 		</thead>
+		{% for submission in submission_list %}
 		<tbody>
-			{% for submission in submission_list %}
 			<td><a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}</a></td>
-			<td>{{ submission.environment }}</td>
+			<td><a href="{{ submission.environment.get_absolute_url }}">{{ submission.environment }}</td>
 			<td>{{ submission.score}}</td>
 			<td>{{ submission.sub_date }}</td>
-			{% endfor %}
 		</tbody>
+		{% endfor %}
 	</table>
     </div>
     <div id="menu3" class="container tab-pane fade">

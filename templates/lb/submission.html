@@ -1,19 +1,37 @@
 {% extends 'lb/base.html' %}
 {% load staticfiles %}
 {% block content %}
-  <div class="submission" style="border: 1px solid silver;border-radius: 5px;font-size: 1.15em">
-    <div class="submission_info">
-      <ul>
-        <li>
-          <span><h3><a href="#">{{ submission.name }}</a></h3></span>
-        </li>
-        <li style="padding-top: 0.5em">
-          <span>submission date:{{ submission.sub_date }}</span>
-          <span>user:{{ submission.user }}</span>
-          <span>environment:{{ submission.environment }}</span>
-        </li>
-      </ul>
-    </div>
-      <p>{{ submission.description|safe }}</p>
-  </div>
+<div>
+	<div>
+		<ul>
+		<h1>{{ submission.name }}</h1>
+		<h4><a>user:{{ submission.user }}</a></h4>
+		<h4><a>environment:{{ submission.environment }}</a></h4>
+		<span>submission date:{{ submission.sub_date }}</span>
+		</ul>
+	</div>
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Overview</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">BestRwards</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Episodes</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Discussion</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="home" class="container tab-pane active">
+			<h3>Overview</h3>
+			<p>{{ submission.description|safe }}</p>
+		</div>
+		<div id="menu1" class="container tab-pane fade">
+			<h3>BestRwards</h3>
+			<p>{{ submission.score }}</p>
+		</div>
+		<div id="menu2" class="container tab-pane fade">
+			<h3>Episodes</h3>
+			<p>episodes</p>
+		</div>
+		<div id="menu3" class="container tab-pane fade">
+			<h3>Discussion</h3>
+			<p>discussion</p>
+		</div>
+</div>
 {% endblock content %}

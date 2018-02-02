@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 <p>account profile</p>
 {% block content %}
-    <div><h4>personal information</h4></div>              
+    <div><h4>Personal Information</h4></div>              
     <form class="profile" method="post" enctype="multipart/form-data"               
         action="{% url 'lb:account_profile' %}">
         {% csrf_token %}

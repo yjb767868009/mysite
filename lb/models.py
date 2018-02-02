@@ -52,11 +52,11 @@ class Environment(models.Model):
     long_des = RichTextUploadingField()
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)
+    user = models.ManyToManyField(User)
     pub_date = models.DateTimeField()
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
-    best_submission = models.IntegerField(default=0)
-    solved = models.BooleanField(default=False)
+    solved = models.CharField(max_length=20,default="unresolved")
     images = ProcessedImageField(upload_to='environment',
                                  default='environment/default.png', 
                                  processors=[ResizeToFill(100,100)],)
@@ -65,12 +65,12 @@ class Environment(models.Model):
     class Meta:
         verbose_name = 'environment'
         verbose_name_plural = verbose_name
-        ordering = ['-id']
+        ordering = ['-pk']
     def click_increase(self):
         self.click_count += 1
         self.save(update_fields=['click_count'])
     def get_absolute_url(self):
-        return reverse('lb:environment_detail', kwargs={'pk':self.pk})
+        return reverse('lb:environment', kwargs={'pk':self.pk})
     def save(self, *args, **kwargs):
         if len(self.images.name.split('/')) == 1:
             self.image.name = self.name + '/' + self.image.name
@@ -88,6 +88,10 @@ class Submission(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
+    class Meta:
+        verbose_name = 'submisssion'
+        verbose_name_plural = verbose_name
+        ordering = ['-score']
     def __str__(self):
         return self.name
 
