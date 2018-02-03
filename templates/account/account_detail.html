@@ -2,11 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="card">
-	<div class="float-left">    
-		<img class="img-fluid img-thumbnail" src="{{user.avatar.url}}" alt="avatar">
-	</div>
-	<div>
-		<h1>{{ user.name }}</h1>
+	<div style="height:200px">
+		<img class="img-fluid img-thumbnail float-left" src="{{user.avatar.url}}" alt="avatar" style="height:100px">
+		<h1>{{ user.username }}</h1>
 		<p>{{ user.signature }}</p>
 		<p>{{ user.title }}</p>
 		<p>{{ user.department }}</p>

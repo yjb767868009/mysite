@@ -20,13 +20,13 @@
 			<h2>no environment</h2>
 		{% endfor %}
 	</ul>
-	<div class="mx-auto">
-		<ul class="pagination">
+	<div>
+		<ul class="pagination justify-content-center" style="margin-top:20px">
 			{% if environment_list.has_previous %}
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">Previous</a></li>
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">{{environment_list.previous_page_number}}</a></li>
 			{% endif %}
-			<li class="page-item active"><a class="page-link" href="#">{{environment_list.number}}</a></li>
+			<li class="page-item active"><a class="page-link">{{environment_list.number}}</a></li>
 			{% if environment_list.has_next %}
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">{{environment_list.next_page_number}}</a></li>
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">Next</a></li>

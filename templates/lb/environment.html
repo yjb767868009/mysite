@@ -2,12 +2,9 @@
 {% load staticfiles %}
 {% block content %}
 
-
 <div class="card">
-	<div class="float-left">    
-                        <img class="img-fluid img-thumbnail" src="{{environment.images.url}}" alt="images">
-	</div>
 	<div>
+		<img class="img-fluid img-thumbnail float-left" src="{{environment.images.url}}" alt="images" style="width:400px">
 		<h1>{{ environment.name }}</h1>
 		<p>{{environment.short_des}}</p>
 		<p class="text-muted">passing line:{{ environment.passing_line }}</p>
@@ -19,7 +16,7 @@
 			<small class="text-muted">Pub date:</small>
 			<small class="text-muted">{{ environment.pub_date }}</small>
 		</div>
-		<p class="text-muted">{{environment.solved}}</p>
+		<span class="badge badge-secondary">{{environment.solved}}</span>
 	</div>
 </div>
 <div>
