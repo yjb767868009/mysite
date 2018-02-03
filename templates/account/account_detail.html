@@ -3,11 +3,11 @@
 {% block content %}
 <div class="card">
 	<div style="height:200px">
-		<img class="img-fluid img-thumbnail float-left" src="{{user.avatar.url}}" alt="avatar" style="height:100px">
-		<h1>{{ user.username }}</h1>
-		<p>{{ user.signature }}</p>
-		<p>{{ user.title }}</p>
-		<p>{{ user.department }}</p>
+		<img class="img-fluid img-thumbnail float-left" src="{{subscriber.avatar.url}}" alt="avatar" style="height:100px">
+		<h1>{{ subscriber.username }}</h1>
+		<p>{{ subscriber.signature }}</p>
+		<p>{{ subscriber.title }}</p>
+		<p>{{ subscriber.department }}</p>
 	</div>
 </div>
 <ul class="nav nav-tabs" role="tablist">
@@ -19,7 +19,7 @@
 <div class="tab-content">
 	<div id="home" class="container tab-pane active">
 		<h3>About</h3>
-		<p>{{ user.about|safe }}</p>
+		<p>{{ subscriber.about|safe }}</p>
 	</div>
 	<div id="menu1" class="container tab-pane fade">
 		<h3>Environment</h3>

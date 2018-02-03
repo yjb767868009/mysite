@@ -25,6 +25,7 @@ class User(AbstractUser):
     signature = models.CharField(max_length=100,blank=True)
     title = models.CharField(max_length=100,blank=True)
     department = models.CharField(max_length=100,blank=True)
+    slug = models.SlugField(max_length=100,default='',blank=False)
     avatar = ProcessedImageField(upload_to='avatar',
                                  default='avatar/default.png', 
                                  processors=[ResizeToFill(85,85)],)
@@ -44,6 +45,8 @@ class User(AbstractUser):
         if self.socialaccount_set.exists() and file_name == 'default.png':
             url = self.socialaccount_set.first().get_avatar_url()
         return url
+    def get_absolute_url(self):
+        return reverse('lb:account_detail',kwargs={'slug':self.slug})
 
 @python_2_unicode_compatible
 class Environment(models.Model):

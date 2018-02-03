@@ -43,16 +43,16 @@ def account_profile(request):
     form = UserDetailForm(instance=request.user)
     return render(request, 'account/account_profile.html', context={'form':form,'messages':messages,})
 
-def account_detail(request):
-    user = request.user
-    avatar = user.avatar
-    username = user.username
-    signature = user.signature
-    title = user.title
-    department = user.department
-    submission_list = Submission.objects.filter(owner=user)
-    environment_list = Environment.objects.filter(participants=user)
-    return render(request, 'account/account_detail.html', context={'user':user,
+def account_detail(request,slug):
+    subscriber = get_object_or_404(User,slug=slug)
+    avatar = subscriber.avatar
+    username = subscriber.username
+    signature = subscriber.signature
+    title = subscriber.title
+    department = subscriber.department
+    submission_list = Submission.objects.filter(owner=subscriber)
+    environment_list = Environment.objects.filter(participants=subscriber)
+    return render(request, 'account/account_detail.html', context={'subscriber':subscriber,
                                                                 'avatar':avatar,
                                                                 'signature':signature,
                                                                 'title':title,
