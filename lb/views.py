@@ -22,9 +22,14 @@ def get_page(request,environment_list):
     return environment_list
 
 def index(request):
-    environment_list = Environment.objects.all()
+    environment_list = Environment.objects.order_by("-click_count")
     environment_list = get_page(request,environment_list)
     return render(request, 'lb/index.html', context={'environment_list': environment_list})
+
+def environment_list(request):
+    environment_list = Environment.objects.order_by("-pub_date")
+    environment_list = get_page(request,environment_list)
+    return render(request, 'lb/environment_list.html', context={'environment_list': environment_list})
 
 @login_required
 def account_profile(request):
@@ -38,7 +43,6 @@ def account_profile(request):
     form = UserDetailForm(instance=request.user)
     return render(request, 'account/account_profile.html', context={'form':form,'messages':messages,})
 
-@login_required
 def account_detail(request):
     user = request.user
     avatar = user.avatar
@@ -68,6 +72,7 @@ def environment(request,pk):
     submission_list = Submission.objects.filter(environment=environment)
     user_list = environment.user.all()
     images = environment.images
+    solved = environment.solved
     return render(request,'lb/environment.html',context={'environment':environment,
                                                                 'images':images,
                                                                 'short_des':short_des,
@@ -75,6 +80,7 @@ def environment(request,pk):
                                                                 'passing_line':passing_line,
                                                                 'pub_date':pub_date,
                                                                 'join_nb':join_nb,
+                                                                'solved':solved,
                                                                 'category_list':category_list,
                                                                 'submission_list':submission_list,
                                                                 'user_list':user_list})
@@ -90,6 +96,16 @@ def submission(request,pk):
                                                         'sub_date':sub_date,
                                                         'user':user,
                                                         'environment':environment,})
+
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+    if not q:
+        error_msg = ''
+        return render(request,'blog/search.html',context={'error_msg':error_msg})
+    environment_list = Environment.objects.filter(title__contains = q)
+    environment_list = get_page(request,environment)
+    return render(request,'blog/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
 @login_required
 def submit(request):

@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^accounts/profile/$', views.account_profile, name='account_profile'),
     url(r'^accounts/detial/$', views.account_detail, name='account_detail'),
     url(r'^submit/$', views.submit, name='submit'),
+    url(r'^environment_list/$', views.environment_list, name='environment_list'),
+    url(r'^search/$', views.search, name='search'),
 ]
