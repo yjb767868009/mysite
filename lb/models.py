@@ -52,7 +52,7 @@ class Environment(models.Model):
     long_des = RichTextUploadingField()
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)
-    user = models.ManyToManyField(User)
+    participants = models.ManyToManyField(User)
     pub_date = models.DateTimeField()
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
@@ -85,7 +85,7 @@ class Submission(models.Model):
     name = models.CharField(max_length=100)
     description = RichTextUploadingField()
     sub_date = models.DateTimeField()
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
     class Meta:

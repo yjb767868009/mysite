@@ -50,8 +50,8 @@ def account_detail(request):
     signature = user.signature
     title = user.title
     department = user.department
-    submission_list = Submission.objects.filter(user=user)
-    environment_list = Environment.objects.filter(user=user)
+    submission_list = Submission.objects.filter(owner=user)
+    environment_list = Environment.objects.filter(participants=user)
     return render(request, 'account/account_detail.html', context={'user':user,
                                                                 'avatar':avatar,
                                                                 'signature':signature,
@@ -70,7 +70,7 @@ def environment(request,pk):
     join_nb = environment.join_nb
     category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
-    user_list = environment.user.all()
+    participants_list = environment.participants.all()
     images = environment.images
     solved = environment.solved
     return render(request,'lb/environment.html',context={'environment':environment,
@@ -83,18 +83,18 @@ def environment(request,pk):
                                                                 'solved':solved,
                                                                 'category_list':category_list,
                                                                 'submission_list':submission_list,
-                                                                'user_list':user_list})
+                                                                'participants_list':participants_list})
 
 def submission(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
     description = submission.description
     sub_date = submission.sub_date
-    user = submission.user
+    owner = submission.owner
     environment = submission.environment
     return render(request,'lb/submission.html',context={'submission':submission,
                                                         'description':description,
                                                         'sub_date':sub_date,
-                                                        'user':user,
+                                                        'owner':owner,
                                                         'environment':environment,})
 
 def search(request):

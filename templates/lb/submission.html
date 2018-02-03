@@ -5,8 +5,8 @@
 	<div>
 		<ul>
 		<h1>{{ submission.name }}</h1>
-		<h4><a>user:{{ submission.user }}</a></h4>
-		<h4><a>environment:{{ submission.environment }}</a></h4>
+		<h4><a href="{% url 'lb:account_detail' %}">owner:{{ submission.owner }}</a></h4>
+		<h4><a href="{% url 'lb:environment' environment.pk %}">environment:{{ submission.environment }}</a></h4>
 		<span>submission date:{{ submission.sub_date }}</span>
 		</ul>
 	</div>
