@@ -42,14 +42,14 @@
 				<th>Submission date</th>
 			</tr>
 		</thead>
+		{% for submission in submission_list %}
 		<tbody>
-			{% for submission in submission_list %}
 			<td><a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}</a></td>
 			<td><a href="{% url 'lb:account_detail'  submission.owner.slug %}">{{ submission.owner }}</a></td>
 			<td>{{ submission.score}}</td>
 			<td>{{ submission.sub_date }}</td>
-			{% endfor %}
 		</tbody>
+		{% endfor %}
 	</table>
     </div>
     <div id="menu2" class="container tab-pane fade">
