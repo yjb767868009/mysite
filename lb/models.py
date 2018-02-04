@@ -21,11 +21,10 @@ class Category(models.Model):
 
 @python_2_unicode_compatible
 class User(AbstractUser):
-    about = RichTextUploadingField(default='')
+    about = RichTextUploadingField(default='',blank=True)
     signature = models.CharField(max_length=100,blank=True)
     title = models.CharField(max_length=100,blank=True)
     department = models.CharField(max_length=100,blank=True)
-    slug = models.SlugField(max_length=100,default='',blank=False)
     avatar = ProcessedImageField(upload_to='avatar',
                                  default='avatar/default.png', 
                                  processors=[ResizeToFill(85,85)],)
@@ -54,8 +53,8 @@ class Environment(models.Model):
     short_des = models.CharField(max_length=200)
     long_des = RichTextUploadingField()
     passing_line = models.IntegerField(default=0)
-    category = models.ManyToManyField(Category)
-    participants = models.ManyToManyField(User)
+    category = models.ManyToManyField(Category,blank=True)
+    participants = models.ManyToManyField(User,blank=True)
     pub_date = models.DateTimeField()
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)

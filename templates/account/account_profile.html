@@ -10,8 +10,8 @@
         <div class="avatar">
             <img class="img-rounded" src="{{ request.user.avatar.url }}">
         </div>
-        <button type="button" class="btn btn-primary" type="submit">SAVE</button>
-	<button type="button" class="btn" href="{% url 'lb:account_detail' request.user.slug %}">CANCEL</button>
+		<button class="btn btn-primary" type="submit">SAVE</button>
+		<a href="{% url 'lb:account_detail' request.user.username %}"><button class="btn">CANCEL</button></a>
     </form>
 {% endblock %}
 

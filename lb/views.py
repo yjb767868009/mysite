@@ -43,8 +43,8 @@ def account_profile(request):
     form = UserDetailForm(instance=request.user)
     return render(request, 'account/account_profile.html', context={'form':form,'messages':messages,})
 
-def account_detail(request,slug):
-    subscriber = get_object_or_404(User,slug=slug)
+def account_detail(request,username):
+    subscriber = get_object_or_404(User,username=username)
     avatar = subscriber.avatar
     username = subscriber.username
     signature = subscriber.signature
@@ -53,6 +53,7 @@ def account_detail(request,slug):
     submission_list = Submission.objects.filter(owner=subscriber)
     environment_list = Environment.objects.filter(participants=subscriber)
     return render(request, 'account/account_detail.html', context={'subscriber':subscriber,
+                                                                'username':username,
                                                                 'avatar':avatar,
                                                                 'signature':signature,
                                                                 'title':title,
@@ -67,10 +68,12 @@ def environment(request,pk):
     long_des = environment.long_des
     passing_line = environment.passing_line
     pub_date = environment.pub_date
-    join_nb = environment.join_nb
     category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
     participants_list = environment.participants.all()
+    join_nb = 0
+    for participant in participants_list:
+        join_nb = join_nb + 1
     images = environment.images
     solved = environment.solved
     return render(request,'lb/environment.html',context={'environment':environment,

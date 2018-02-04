@@ -38,7 +38,7 @@
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu bg-light">
-						<a class="dropdown-item" href="{% url 'lb:account_detail' user.slug %}">{{user.username}}</a>
+						<a class="dropdown-item" href="{% url 'lb:account_detail' user.username %}">{{user.username}}</a>
 						<a class="dropdown-item" href="{% url 'lb:account_profile' %}">Profile</a>
 						<a class="dropdown-item" href="{% url 'account_change_password' %}">Account Setting</a>
 						<div class="dropdown-divider"></div>
