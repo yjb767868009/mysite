@@ -23,7 +23,7 @@ EMAIL_USE_SSL = True
 EMAIL_POST = 465
 DEFAULT_FROM_EMAIL = 'administrator <administrator@control-net.org>'
 EMAIL_TIMEOUT = 10
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Application definition
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
 
     'ckeditor',
     'ckeditor_uploader',
