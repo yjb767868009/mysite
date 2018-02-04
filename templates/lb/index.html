@@ -14,7 +14,11 @@
 			<img src="http://static.runoob.com/images/mix/img_fjords_wide.jpg">
 			<div class="carousel-caption">
 				<h3>This is a platform for deep learning</h3>
+				{% if user.is_authenticated %}
+				<a href="{% url 'lb:environment_list' %}"><button type="button" class="btn btn-primary">Look Environments</button></a>
+				{% else %}
 				<a href="{% url 'account_signup' %}"><button type="button" class="btn btn-primary">JOIN US</button></a>
+				{% endif %}
 			</div>
 		</div>
 		<div class="carousel-item">

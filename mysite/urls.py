@@ -24,10 +24,9 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('lb.urls')),
-    # url(r'^comments/', include('django_comments.urls')),
+    url(r'^comments/', include('django_comments.urls')),
     # url(r'', include('easy_comment.urls')),
     # url(r'^notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^accounts/',include('allauth.urls')),
     url(r'', include('ckeditor_uploader.urls')),
-    # url(r'^accounts/profile/$', views.account_profile, name='account_profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

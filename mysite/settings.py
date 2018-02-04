@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'lb',
     
     'mptt',
-    # 'django_comments'
+    'django_comments',
 
     # 'notifications',
     # 'online_status',
