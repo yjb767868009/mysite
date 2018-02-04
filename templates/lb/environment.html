@@ -1,8 +1,9 @@
 {% extends 'lb/base.html' %}
 {% load staticfiles %}
 {% load comments %}
-{% block content %}
+{% load comments_xtd %}
 
+{% block content %}
 <div class="card">
 	<div>
 		<img class="img-fluid img-thumbnail float-left" src="{{environment.images.url}}" alt="images" style="width:400px">
@@ -54,12 +55,22 @@
 	</table>
     </div>
 	<div id="menu2" class="container tab-pane fade">
+		{% get_comment_count for environment as comment_count %}
 		<h3>Discussion</h3>
-		<p>Discussion</p>
-		{%get_comment_list for environment as comment_list%}
-		{%for comment in comment_list%}
-		<p>{{comment.user}} said: {{comment.comment|safe}}</p>
-		{%endfor%}
+		{% if comment_count %}
+			<hr/>
+			<ul class="media-list">
+				{% render_xtdcomment_tree for environment allow_flagging allow_feedback show_feedback%}
+			</ul>
+		{% else %}
+			<p>There has no posts</p>
+		{% endif %}
+			<div class="comment">
+				<h4 class="text-center">Your comment</h4>
+				<div class="well">
+					{% render_comment_form for environment %}
+				</div>
+			</div>
 	</div>
     <div id="menu3" class="container tab-pane fade">
       <h3>Category</h3>
