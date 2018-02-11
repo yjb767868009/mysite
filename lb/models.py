@@ -96,4 +96,6 @@ class Submission(models.Model):
         ordering = ['-score']
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('lb:submission', kwargs={'pk':self.pk})
 
