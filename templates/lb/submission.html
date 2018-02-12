@@ -36,6 +36,7 @@
 		{% get_comment_count for submission as comment_count %}
 		<h3>Discussion</h3>
 		{% if comment_count %}
+		{{ comment_count }} comments have been posted.
 			<hr/>
 			<ul class="media-list">
 				{% render_xtdcomment_tree for submission %}
