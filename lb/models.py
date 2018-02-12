@@ -55,7 +55,8 @@ class Environment(models.Model):
     passing_line = models.IntegerField(default=0)
     category = models.ManyToManyField(Category,blank=True)
     participants = models.ManyToManyField(User,blank=True)
-    pub_date = models.DateTimeField()
+    allow_comments = models.BooleanField('allow comments', default=True)
+    pub_date = models.DateTimeField(default=timezone.now)
     join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
     solved = models.CharField(max_length=20,default="unresolved")
@@ -85,10 +86,11 @@ class Environment(models.Model):
 @python_2_unicode_compatible
 class Submission(models.Model):
     name = models.CharField(max_length=100)
-    description = RichTextUploadingField()
-    sub_date = models.DateTimeField()
+    description = RichTextUploadingField(default='',blank=True)
+    sub_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
+    allow_comments = models.BooleanField('allow comments', default=True)
     score = models.IntegerField(default=0)
     class Meta:
         verbose_name = 'submisssion'
