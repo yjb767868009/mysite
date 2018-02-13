@@ -60,6 +60,9 @@ INSTALLED_APPS = [
 COMMENTS_XTD_MAX_THREAD_LEVEL = 2
 COMMENTS_APP = 'django_comments_xtd'
 COMMENTS_XTD_CONFIRM_EMAIL = False
+MANAGERS = (
+    ('Fish', '767868009@qq.com'),
+)
 #  To help obfuscating comments before they are sent for confirmation.
 COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
                      b"Aequam memento rebus in arduis servare mentem.")
@@ -68,7 +71,12 @@ COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
 # Contact mail address to show in messages.
 #COMMENTS_XTD_CONTACT_EMAIL = "helpdesk@example.com"
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
-    'lb.environment': {
+    'lb.Environment': {
+        'allow_flagging': True,
+        'allow_feedback': True,
+        'show_feedback': True,
+    },
+    'lb.submission': {
         'allow_flagging': True,
         'allow_feedback': True,
         'show_feedback': True,
