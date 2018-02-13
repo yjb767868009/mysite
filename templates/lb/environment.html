@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load comments %}
 {% load comments_xtd %}
-
+{% block title %}{{ environment.name }}{% endblock %}
 {% block content %}
 <div class="card">
 	<div>
@@ -58,10 +58,11 @@
 		{% get_comment_count for environment as comment_count %}
 		<h3>Discussion</h3>
 		{% if comment_count %}
+			{{ comment_count }} comments have been posted.
 			<hr/>
-			<ul class="media-list">
+			<div class="comments">
 				{% render_xtdcomment_tree for environment allow_flagging allow_feedback show_feedback%}
-			</ul>
+			</div>
 		{% else %}
 			<p>There has no posts</p>
 		{% endif %}
