@@ -118,23 +118,6 @@ class EnvironmentCommentModerator(SpamModerator):
         lowcase_comment = comment.comment.lower()
         msg = dict([(clean(w), i)
                     for i, w in enumerate(lowcase_comment.split())])
-        for badword in badwords:
-            if isinstance(badword, str):
-                if lowcase_comment.find(badword) > -1:
-                    return True
-            else:
-                lastindex = -1
-                for subword in badword:
-                    if subword in msg:
-                        if lastindex > -1:
-                            if msg[subword] == (lastindex + 1):
-                                lastindex = msg[subword]
-                        else:
-                            lastindex = msg[subword]
-                    else:
-                        break
-                if msg.get(badword[-1]) and msg[badword[-1]] == lastindex:
-                    return True
         return super(EnvironmentCommentModerator, self).moderate(comment,
                                                           content_object,
                                                           request)

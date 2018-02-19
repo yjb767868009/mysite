@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'lb',
     
+    'rest_framework',
+
     'mptt',
     'django_comments_xtd',
     'django_comments',
