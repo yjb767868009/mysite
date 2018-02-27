@@ -3,14 +3,14 @@
 
 {% block content %}
 <div>
-	<div id="demo" class="carousel slide" data-ride="carousel">
+	<div id="demo" class="carousel slide">
 		<ul class="carousel-indicators">
 			<li data-target="#demo" data-slide-to="0" class="active"></li>
 			<li data-target="#demo" data-slide-to="1"></li>
 			<li data-target="#demo" data-slide-to="2"></li>
 		</ul>
 		<div class="carousel-inner">
-		<div class="carousel-item active">
+		<div class="item active">
 			<img src="http://static.runoob.com/images/mix/img_fjords_wide.jpg">
 			<div class="carousel-caption">
 				<h3>This is a platform for deep learning</h3>
@@ -21,25 +21,21 @@
 				{% endif %}
 			</div>
 		</div>
-		<div class="carousel-item">
+		<div class="item">
 			<img src="http://static.runoob.com/images/mix/img_nature_wide.jpg">
 			<div class="carousel-caption">
 				<h3>Second Picture</h3>
 			</div>
 		</div>
-		<div class="carousel-item">
+		<div class="item">
 			<img src="http://static.runoob.com/images/mix/img_mountains_wide.jpg">
 			<div class="carousel-caption">
 				<h3>Third Picturre</h3>
 			</div>
     		</div>
 		</div>
-		<a class="carousel-control-prev" href="#demo" data-slide="prev">
-			<span class="carousel-control-prev-icon"></span>
-		</a>
-		<a class="carousel-control-next" href="#demo" data-slide="next">
-			<span class="carousel-control-next-icon"></span>
-		</a>
+		<a class="carousel-control left" href="#demo" data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#demo" data-slide="next">&rsaquo;</a>
 	</div>
 	<div style="margin-top:20px;margin-bottom:20px">
 		<h2>Hot Environment</h2>
@@ -47,11 +43,11 @@
 	<ul class="list-group">
  		{% for environment in environment_list %}
 			<div class="list-group-item">
-				<div >
-					<a class="float-left" href="{{ environment.get_absolute_url }}">
-						<div class="img-thumbnail"><img class="media-object" src="{{environment.images.url}}" alt="media" height="100"></div>
+				<div class="media">
+					<a class="media-left" href="{{ environment.get_absolute_url }}">
+						<img class="media-object" src="{{environment.images.url}}" alt="media" height="100">
 					</a>
-					<div>
+					<div class="media-body">
 						<h4><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h4>
 						<p style="color: #666666">{{ environment.short_des }}</p>
 						<span class="badge badge-secondary">{{environment.solved}}</span>

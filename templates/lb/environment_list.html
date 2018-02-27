@@ -5,11 +5,11 @@
 	<ul class="list-group">
  		{% for environment in environment_list %}
 			<div class="list-group-item">
-				<div >
-					<a class="float-left" href="{{ environment.get_absolute_url }}">
-						<div class="img-thumbnail"><img class="media-object" src="{{environment.images.url}}" alt="media" height="100"></div>
+				<div class="media">
+					<a class="media-left" href="{{ environment.get_absolute_url }}">
+						<img class="media-object" src="{{environment.images.url}}" alt="media" height="100">
 					</a>
-					<div>
+					<div class="media-body">
 						<h4><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h4>
 						<p style="color: #666666">{{ environment.short_des }}</p>
 						<span class="badge badge-secondary">{{environment.solved}}</span>
@@ -21,7 +21,7 @@
 		{% endfor %}
 	</ul>
 	<div>
-		<ul class="pagination justify-content-center" style="margin-top:20px">
+		<ul class="pagination center" style="margin-top:20px">
 			{% if environment_list.has_previous %}
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">Previous</a></li>
 			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">{{environment_list.previous_page_number}}</a></li>

@@ -4,9 +4,11 @@
 {% load comments_xtd %}
 {% block title %}{{ environment.name }}{% endblock %}
 {% block content %}
-<div class="card">
-	<div>
-		<img class="img-fluid img-thumbnail float-left" src="{{environment.images.url}}" alt="images" style="width:400px">
+<div class="media">
+	<div class="media-left" href="#">
+		<img class="media-object" src="{{environment.images.url}}" alt="images" style="width:400px">
+	</div>
+	<div class="media-body">
 		<h1>{{ environment.name }}</h1>
 		<p>{{environment.short_des}}</p>
 		<p class="text-muted">passing line:{{ environment.passing_line }}</p>
