@@ -1,4 +1,6 @@
 import datetime
+import hashlib
+import urllib
 
 from django.db import models
 from django.utils import timezone
@@ -26,25 +28,12 @@ class User(AbstractUser):
     signature = models.CharField(max_length=100,blank=True)
     title = models.CharField(max_length=100,blank=True)
     department = models.CharField(max_length=100,blank=True)
-    avatar = ProcessedImageField(upload_to='avatar',
-                                 default='avatar/default.png', 
-                                 processors=[ResizeToFill(85,85)],)
     def __str__(self):
         return self.username
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = verbose_name
         ordering = ['-id']
-    def save(self, *args, **kwargs):
-        if len(self.avatar.name.split('/')) == 1:
-            self.avatar.name = self.username + '/' + self.avatar.name
-        super(User, self).save()
-    def get_avatar_url(self):
-        url = self.avatar.url
-        file_name = url.split('/')[-1]
-        if self.socialaccount_set.exists() and file_name == 'default.png':
-            url = self.socialaccount_set.first().get_avatar_url()
-        return url
     def get_absolute_url(self):
         return reverse('lb:account_detail',kwargs={'slug':self.slug})
 

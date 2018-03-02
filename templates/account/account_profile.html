@@ -7,11 +7,9 @@
         action="{% url 'lb:account_profile' %}">
         {% csrf_token %}
         {{ form|crispy }}
-        <div class="avatar">
-            <img class="img-rounded" src="{{ request.user.avatar.url }}">
-        </div>
-		<button class="btn btn-primary" type="submit">SAVE</button>
-		<a href="{% url 'lb:account_detail' request.user.username %}"><button class="btn">CANCEL</button></a>
+	<h4>if you want to change your avatar,please create your <a href="https://en.gravatar.com/">gravatar</a></h4>
+	<button class="btn btn-primary" type="submit">SAVE</button>
+	<a href="{% url 'lb:account_detail' request.user.username %}"><button class="btn">CANCEL</button></a>
     </form>
 {% endblock %}
 

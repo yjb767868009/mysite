@@ -45,7 +45,6 @@ def account_profile(request):
 
 def account_detail(request,username):
     subscriber = get_object_or_404(User,username=username)
-    avatar = subscriber.avatar
     username = subscriber.username
     signature = subscriber.signature
     title = subscriber.title
@@ -54,7 +53,6 @@ def account_detail(request,username):
     environment_list = Environment.objects.filter(participants=subscriber)
     return render(request, 'account/account_detail.html', context={'subscriber':subscriber,
                                                                 'username':username,
-                                                                'avatar':avatar,
                                                                 'signature':signature,
                                                                 'title':title,
                                                                 'department':department,
