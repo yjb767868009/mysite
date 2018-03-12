@@ -23,7 +23,7 @@
 	{% endblock %}
   </head>
 <body>
-<div>
+<di>
 	{% block body %}
 	<nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">
@@ -32,11 +32,11 @@
 		</div>
 		<div>
 		<ul class="nav navbar-nav navbar-right">
-			<li class="nav-item"><a class="nav-link" href="{% url 'lb:environment_list' %}">Environment</a></li>
+			<li class="nav-item"><a class="nav-link" href="{% url 'lb:environment_list' %}"  >Environment</a></li>
 			{% if user.is_authenticated %}
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					{{ user.email|gravatar }}
+					{{ user.email|gravatar:50 }}
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
