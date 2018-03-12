@@ -14,17 +14,14 @@
 		</ul>
 	</div>
 	<ul id="myTab" class="nav nav-tabs">
-		<li class="active"><a href="#home" data-toggle="tab">Overview</a></li>
+		<li><a href="{% url 'lb:submission' submission.pk%}">Overview</a></li>
 		<li><a href="{% url 'lb:submission_bestrwards' submission.pk%}">BestRwards</a></li>
-		<li><a href="{% url 'lb:submission_episodes' submission.pk%}">Episodes</a></li>
+		<li class="active"><a href="#">Episodes</a></li>
 		<li><a href="{% url 'lb:submission_discussion' submission.pk%}">Discussion</a></li>
 	</ul>
 	<div class="well well-lg">
-	<div class="tab-content">
-		<div id="home" class="tab-pane fade in active">
-			<h3>Overview</h3>
-			<p>{{ submission.description|safe }}</p>
-		</div>
+			<h3>Episodes</h3>
+			<p>episodes</p>
 	</div>
 </div>
 {% endblock content %}

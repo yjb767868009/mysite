@@ -86,6 +86,22 @@ def environment(request,pk):
                                                                 'submission_list':submission_list,
                                                                 'participants_list':participants_list})
 
+def environment_leaderboard(request,pk):
+    environment = get_object_or_404(Environment, pk=pk)
+    submission_list = Submission.objects.filter(environment=environment)
+    return render(request,'lb/environment_leaderboard.html',context={'environment':environment,
+                                                                'submission_list':submission_list})
+
+def environment_discussion(request,pk):
+    environment = get_object_or_404(Environment, pk=pk)
+    return render(request,'lb/environment_discussion.html',context={'environment':environment})
+
+def environment_category(request,pk):
+    environment = get_object_or_404(Environment, pk=pk)
+    category_list = environment.category.all()
+    return render(request,'lb/environment_category.html',context={'environment':environment,
+                                                                'category_list':category_list})
+
 def submission(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
     description = submission.description
@@ -98,15 +114,40 @@ def submission(request,pk):
                                                         'owner':owner,
                                                         'environment':environment,})
 
+def submission_bestrwards(request,pk):
+    submission = get_object_or_404(Submission, pk=pk)
+    environment = submission.environment
+    owner = submission.owner
+    return render(request,'lb/submission_bestrwards.html',context={'submission':submission, 
+                                                       'owner':owner,
+                                                        'environment':environment,})
+
+def submission_episodes(request,pk):
+    submission = get_object_or_404(Submission, pk=pk)
+    environment = submission.environment
+    owner = submission.owner
+    return render(request,'lb/submission_episodes.html',context={'submission':submission,
+                                                        'owner':owner,
+                                                        'environment':environment,})
+
+def submission_discussion(request,pk):
+    submission = get_object_or_404(Submission, pk=pk)
+    environment = submission.environment
+    owner = submission.owner
+    return render(request,'lb/submission_discussion.html',context={'submission':submission,
+                                                        'owner':owner,
+                                                        'environment':environment,})
+
+
 def search(request):
     q = request.GET.get('q')
     error_msg = ''
     if not q:
         error_msg = ''
-        return render(request,'blog/search.html',context={'error_msg':error_msg})
+        return render(request,'lb/search.html',context={'error_msg':error_msg})
     environment_list = Environment.objects.filter(title__contains = q)
     environment_list = get_page(request,environment)
-    return render(request,'blog/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
+    return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
 @login_required
 def submit(request):

@@ -44,11 +44,11 @@
  		{% for environment in environment_list %}
 			<div class="list-group-item">
 				<div class="media">
-					<a class="media-left" href="{{ environment.get_absolute_url }}">
+					<a class="media-left" href="{% url 'lb:environment' environment.pk%}">
 						<img class="media-object" src="{{environment.images.url}}" alt="media" height="100">
 					</a>
 					<div class="media-body">
-						<h4><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></h4>
+						<h4><a href="{% url 'lb:environment' environment.pk%}">{{ environment.name }}</a></h4>
 						<p style="color: #666666">{{ environment.short_des }}</p>
 						<span class="badge badge-secondary">{{environment.solved}}</span>
 					</div>

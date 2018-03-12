@@ -63,7 +63,7 @@ class Environment(models.Model):
         self.click_count += 1
         self.save(update_fields=['click_count'])
     def get_absolute_url(self):
-        return reverse('lb:environment', kwargs={'pk':self.pk})
+        return reverse('lb:environment_discussion', kwargs={'pk':self.pk})
     def save(self, *args, **kwargs):
         if len(self.images.name.split('/')) == 1:
             self.image.name = self.name + '/' + self.image.name
@@ -89,7 +89,7 @@ class Submission(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse('lb:submission', kwargs={'pk':self.pk})
+        return reverse('lb:submission_discussion', kwargs={'pk':self.pk})
 
 class EnvironmentCommentModerator(SpamModerator):
     email_notification = True

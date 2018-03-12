@@ -14,17 +14,31 @@
 		</ul>
 	</div>
 	<ul id="myTab" class="nav nav-tabs">
-		<li class="active"><a href="#home" data-toggle="tab">Overview</a></li>
+		<li><a href="{% url 'lb:submission' submission.pk%}">Overview</a></li>
 		<li><a href="{% url 'lb:submission_bestrwards' submission.pk%}">BestRwards</a></li>
 		<li><a href="{% url 'lb:submission_episodes' submission.pk%}">Episodes</a></li>
-		<li><a href="{% url 'lb:submission_discussion' submission.pk%}">Discussion</a></li>
+		<li class="active"><a href="#">Discussion</a></li>
 	</ul>
 	<div class="well well-lg">
-	<div class="tab-content">
-		<div id="home" class="tab-pane fade in active">
-			<h3>Overview</h3>
-			<p>{{ submission.description|safe }}</p>
-		</div>
+		{% get_comment_count for submission as comment_count %}
+		<h3>Discussion</h3>
+		{% if comment_count %}
+		{{ comment_count }} comments have been posted.
+			<hr/>
+			<ul class="comments">
+				{% render_xtdcomment_tree for submission allow_flagging allow_feedback show_feedback %}
+			</ul>
+		{% else %}
+			<p>There has no posts</p>
+		{% endif %}
+		{% if submission.allow_comments %}
+			<div class="comment">
+				<h4 class="text-center">Your Comment</h4>
+				<div class="well">
+					{% render_comment_form for submission %}
+				</div>
+			</div>
+		{% endif %}
 	</div>
 </div>
 {% endblock content %}

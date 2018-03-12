@@ -2,7 +2,6 @@
 {% load staticfiles %}
 {% load comments %}
 {% load comments_xtd %}
-{% block title %}{{ environment.name }}{% endblock %}
 {% block content %}
 <div class="media">
 	<div class="media-left" href="#">
@@ -23,23 +22,15 @@
 		<span class="badge badge-secondary">{{environment.solved}}</span>
 	</div>
 </div>
-<ul id="myTab" class="nav nav-tabs">
-	<li class="active"><a href="#home" data-toggle="tab">Overview</a></li>
+<ul class="nav nav-tabs">
+	<li ><a href="{% url 'lb:environment' environment.pk%}">Overview</a></li>
 	<li><a href="{% url 'lb:environment_leaderboard' environment.pk%}">Leaderboard</a></li>
 	<li><a href="{% url 'lb:environment_discussion' environment.pk%}">Discussion</a></li>
-	<li><a href="{% url 'lb:environment_category' environment.pk%}">Category</a></li>
+	<li class="active"><a href="#home">Category</a></li>
 </ul>
 <div class="well well-lg">
-<div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade in active" id="home">
-		<h3>Overview</h3>
-		{{ environment.long_des|safe }}
-	</div>
-	<div class="tab-pane fade" id="category">
-		<h3>Category</h3>
-
-	</div>
+		{% for category in category_list %}
+			 <a href="#">{{ category.name }}</a>
+		{% endfor %}
 </div>
-</div>
-{% endblock content %}
-
+{% endblock content%}
