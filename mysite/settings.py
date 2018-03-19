@@ -61,6 +61,8 @@ INSTALLED_APPS = [
 #comment
 COMMENTS_XTD_MAX_THREAD_LEVEL = 4
 COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_FORM_CLASS = "django_comments_xtd.forms.XtdCommentForm"
+COMMENTS_XTD_MODEL = "django_comments_xtd.models.XtdComment"
 COMMENTS_XTD_CONFIRM_EMAIL = False
 MANAGERS = (
     ('Fish', '767868009@qq.com'),
