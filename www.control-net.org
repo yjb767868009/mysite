@@ -1,0 +1,19 @@
+server {
+    charset utf-8;
+    listen 80;
+    server_name www.control-net.org;
+
+    location /static {
+        alias /home/caffe/mysite/static;
+    }
+
+    location /media {
+        alias /home/caffe/mysite/media;
+    }
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_pass http://unix:/tmp/www.control-net.org.socket;
+    }
+}
+

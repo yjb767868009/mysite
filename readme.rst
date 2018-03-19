@@ -16,4 +16,5 @@ Assuming you use virtualenv, follow these steps to download and run the mysite i
     $ python manage.py collectstatic
     $ /etc/init.d/nginx restart 
 
+    $ gunicorn --bind unix:/tmp/www.control-net.org.socket mysite.wsgi:application
 
