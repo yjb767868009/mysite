@@ -13,7 +13,7 @@ SECRET_KEY = 'l5%w(ie1e9u)#!m&@3eoqkx7^kof!+t)7%6klt-2w9#aq7s%3t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','loaclhost','.control-net.org']
+ALLOWED_HOSTS = ['127.0.0.1','loaclhost','.control-net.org','39.108.155.69']
 
 # email
 EMAIL_HOST = 'smtpdm.aliyun.com'
