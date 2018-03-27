@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l5%w(ie1e9u)#!m&@3eoqkx7^kof!+t)7%6klt-2w9#aq7s%3t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','loaclhost','.control-net.org','39.108.155.69']
 
@@ -251,6 +251,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_DIRS = (
+    os.path.join(BASE_DIR,'static/')
+)
 
 try:
     from local_settings import *  # noqa

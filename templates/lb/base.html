@@ -7,9 +7,21 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/normalize.css">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
+	<!-- All the files that are required -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<style type="text/css">
+		html,
+		body {
+	  		background: #efefef;
+  			font-family: 'Varela Round';
+		}
 		/* Make the image fully responsive */
 		.carousel-inner img {
 		width: 100%;
@@ -18,12 +30,12 @@
 		.post-footer, .comments {
 		padding: 20px 0;
 		}
-  </style>
+  	</style>
 	{% block extra_head %}
 	{% endblock %}
   </head>
 <body>
-<di>
+<div>
 	{% block body %}
 	<nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">
@@ -65,27 +77,29 @@
 				{% endfor %}
 			</ul>
 		</div>
-	{% endif %}
+		{% endif %}
+	<div style="height:660px">
 	{% block content %}
 	{% endblock %}
+	</div>
 	{% block extra_body %}
 	{% endblock %}
 	{% endblock %}
 	</div>
+	<nav class="navbar navbar-default navbar-inverse navbar-bottom" role="navigation" style="height:100px">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Logo</a>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<li><a class="nav-link" href="#">FAQ</a></li>
+				<li><a class="nav-link" href="#">About us</a></li>
+				<li><a class="nav-link" href="#">Privacy</a></li>
+				<li><a class="nav-link" href="#">Terms of Service</a></li>
+				<li><a class="nav-link" href="#">Github</a></li>
+			</div>
+		</div>
+	</nav>
 </div>
-<nav class="navbar navbar-default navbar-inverse navbar-bottom" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Logo</a>
-		</div>
-		<div class="nav navbar-nav navbar-right">
-			<li><a class="nav-link" href="#">FAQ</a></li>
-			<li><a class="nav-link" href="#">About us</a></li>
-			<li><a class="nav-link" href="#">Privacy</a></li>
-			<li><a class="nav-link" href="#">Terms of Service</a></li>
-			<li><a class="nav-link" href="#">Github</a></li>
-		</div>
-	</div>
-</nav>
 </body>
 </html>
