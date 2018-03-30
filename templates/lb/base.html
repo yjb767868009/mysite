@@ -21,6 +21,11 @@
 		body {
 	  		background: #efefef;
   			font-family: 'Varela Round';
+			margin:0
+		}
+		.content{
+		min-height:100%;
+		margin:0 auto -50xp;
 		}
 		/* Make the image fully responsive */
 		.carousel-inner img {
@@ -30,12 +35,16 @@
 		.post-footer, .comments {
 		padding: 20px 0;
 		}
+		.footer,
+		.push{
+		height:50px;
+		}
   	</style>
 	{% block extra_head %}
 	{% endblock %}
   </head>
 <body>
-<div>
+<div class="content">
 	{% block body %}
 	<nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">
@@ -86,7 +95,10 @@
 	{% endblock %}
 	{% endblock %}
 	</div>
-	<nav class="navbar navbar-default navbar-inverse navbar-bottom" role="navigation" style="height:100px">
+</div>
+<div class="push"></div>
+<div class="footer">
+	<nav class="navbar-default navbar-inverse" role="navigation" style="height:100px">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">Logo</a>

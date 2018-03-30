@@ -7,15 +7,20 @@
 {% block local-account %}
 
 <div class="logo">logout</div>
-<p>Are you sure you want to log out?</p>
+
 <div class="login-form-1">
 	<form class="text-left" method="post" action="{% url 'account_logout' %}">
-		{% csrf_token %}
-		<div class="login-form-main-message"></div>
+			 {% csrf_token %}
+			<div class="login-form-main-message"></div>
 			<div class="main-login-form">
- 		 	{% if redirect_field_value %}
- 			 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  			{% endif %}
+				<div class="login-group">
+					<div class="form-group">
+						<p>Are you sure you want to log out?</p>
+					</div>
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+{% endif %} 
+				</div>
 				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
 			</div>
 	</form>

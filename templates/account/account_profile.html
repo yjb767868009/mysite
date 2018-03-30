@@ -1,15 +1,27 @@
 {% extends 'account/base.html' %}
 {% load crispy_forms_tags %}
-<p>account profile</p>
-{% block content %}
-    <div><h4>Personal Information</h4></div>              
-    <form class="profile" method="post" enctype="multipart/form-data"               
-        action="{% url 'lb:account_profile' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-	<h4>if you want to change your avatar,please create your <a href="https://en.gravatar.com/">gravatar</a></h4>
-	<button class="btn btn-primary" type="submit">SAVE</button>
-	<a href="{% url 'lb:account_detail' request.user.username %}"><button class="btn">CANCEL</button></a>
-    </form>
-{% endblock %}
 
+{% block local-account %}
+	<div class="logo">Personal Information</div>
+	<!-- Main Form -->
+	<div class="login-form-1">
+		<form class="profile" method="post" enctype="multipart/form-data" action="{% url 'lb:account_profile' %}">
+			 {% csrf_token %}
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group">
+						{{ form|crispy }}
+					</div>
+					<div>
+						<p>if you want to change your avatar,please create your <a href="https://en.gravatar.com/">gravatar</a></p>
+					</div>
+				</div>
+				<button class="btn btn-primary" type="submit">SAVE</button>
+				<a href="{% url 'lb:account_detail' request.user.username %}"><button class="btn">CANCEL</button></a>
+			</div>
+		</form>
+	</div>
+	<!-- end:Main Form -->
+
+{% endblock local-account %}
