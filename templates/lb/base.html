@@ -6,16 +6,12 @@
 	<title>{% block title %}{% endblock %}</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round" type='text/css'>
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/normalize.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- All the files that are required -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
 	<style type="text/css">
 		html,
 		body {
@@ -35,9 +31,8 @@
 		.post-footer, .comments {
 		padding: 20px 0;
 		}
-		.footer,
-		.push{
-		height:50px;
+		.footer{
+  margin-bottom: 5px;
 		}
   	</style>
 	{% block extra_head %}
@@ -45,7 +40,7 @@
   </head>
 <body>
 <div class="content">
-	{% block body %}
+
 	<nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
@@ -87,16 +82,16 @@
 			</ul>
 		</div>
 		{% endif %}
-	<div style="height:660px">
-	{% block content %}
-	{% endblock %}
-	</div>
-	{% block extra_body %}
-	{% endblock %}
-	{% endblock %}
+		<div style="height:1000px">
+			{% block content %}
+			{% endblock %}
+		</div>
+			{% block extra_body %}
+			{% endblock %}
+
 	</div>
 </div>
-<div class="push"></div>
+
 <div class="footer">
 	<nav class="navbar-default navbar-inverse" role="navigation" style="height:100px">
 		<div class="container">

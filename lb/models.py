@@ -8,12 +8,16 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 
+from django import forms
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 from django_comments_xtd.moderation import moderator, SpamModerator
+
+class CkEditorForm(forms.Form):
+    about = RichTextUploadingField()
 
 @python_2_unicode_compatible
 class Category(models.Model):
