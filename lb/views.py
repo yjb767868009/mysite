@@ -71,7 +71,7 @@ def environment(request,pk):
     participants_list = environment.participants.all()
     join_nb = 0
     for participant in participants_list:
-        join_nb = join_nb + 1
+        join_nb=join_nb+1
     images = environment.images
     solved = environment.solved
     return render(request,'lb/environment.html',context={'environment':environment,

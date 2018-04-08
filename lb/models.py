@@ -48,7 +48,6 @@ class Environment(models.Model):
     participants = models.ManyToManyField(User,blank=True)
     allow_comments = models.BooleanField('allow comments', default=True)
     pub_date = models.DateTimeField(default=timezone.now)
-    join_nb =  models.IntegerField(default=0)
     click_count = models.PositiveIntegerField(default=0)
     solved = models.CharField(max_length=20,default="unresolved")
     images = ProcessedImageField(upload_to='environment',
