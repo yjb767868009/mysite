@@ -16,9 +16,6 @@ from imagekit.processors import ResizeToFill
 
 from django_comments_xtd.moderation import moderator, SpamModerator
 
-class CkEditorForm(forms.Form):
-    about = RichTextUploadingField()
-
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(max_length=100)

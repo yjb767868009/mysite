@@ -1,5 +1,7 @@
 from django.forms import ModelForm
 from .models import *
+from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField    
 
 class UserDetailForm(ModelForm):
     class Meta:
