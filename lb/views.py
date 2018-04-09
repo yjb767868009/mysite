@@ -45,43 +45,23 @@ def account_profile(request):
 
 def account_detail(request,username):
     subscriber = get_object_or_404(User,username=username)
-    username = subscriber.username
-    signature = subscriber.signature
-    title = subscriber.title
-    department = subscriber.department
     submission_list = Submission.objects.filter(owner=subscriber)
     environment_list = Environment.objects.filter(participants=subscriber)
     return render(request, 'account/account_detail.html', context={'subscriber':subscriber,
-                                                                'username':username,
-                                                                'signature':signature,
-                                                                'title':title,
-                                                                'department':department,
                                                                 'submission_list':submission_list,
                                                                 'environment_list':environment_list})
 
 def environment(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     environment.click_increase()
-    short_des = environment.short_des
-    long_des = environment.long_des
-    passing_line = environment.passing_line
-    pub_date = environment.pub_date
     category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
     participants_list = environment.participants.all()
     join_nb = 0
     for participant in participants_list:
         join_nb=join_nb+1
-    images = environment.images
-    solved = environment.solved
     return render(request,'lb/environment.html',context={'environment':environment,
-                                                                'images':images,
-                                                                'short_des':short_des,
-                                                                'long_des':long_des,
-                                                                'passing_line':passing_line,
-                                                                'pub_date':pub_date,
                                                                 'join_nb':join_nb,
-                                                                'solved':solved,
                                                                 'category_list':category_list,
                                                                 'submission_list':submission_list,
                                                                 'participants_list':participants_list})
@@ -104,14 +84,8 @@ def environment_category(request,pk):
 
 def submission(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
-    description = submission.description
-    sub_date = submission.sub_date
-    owner = submission.owner
     environment = submission.environment
     return render(request,'lb/submission.html',context={'submission':submission,
-                                                        'description':description,
-                                                        'sub_date':sub_date,
-                                                        'owner':owner,
                                                         'environment':environment,})
 
 def submission_bestrwards(request,pk):

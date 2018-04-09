@@ -41,7 +41,7 @@
 		</thead>
 		{% for environment in environment_list %}
 		<tbody>
-			<td><img class="img-thumbnail" src="{{environment.images.url}}"  alt="images" style="height:100px" ></td>
+			<td><a href="{{ environment.get_absolute_url }}"><img class="img-thumbnail" src="{{environment.images.url}}"  alt="images" style="height:100px"></a></td>
 			<td><a href="{{ environment.get_absolute_url }}">{{ environment.name }}</a></td>
 			<td>{{ environment.short_des }}</td>
 		</tbody>
