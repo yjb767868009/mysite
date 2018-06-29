@@ -10,8 +10,8 @@ class UserDetailForm(ModelForm):
         fields = ('username', 'about','first_name','last_name','signature', 'title','department')
 
 class SubmissionForm(ModelForm):
-    # checkpoints_file = forms.FileField()
-    # test_model_file = forms.FileField()
+    checkpoints_file = forms.FileField()
+    test_program_file = forms.FileField()
     class Meta:
         model = Submission
         fields = ('name','description','allow_comments')

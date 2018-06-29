@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage
 from .models import *
+import os
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
@@ -149,11 +150,28 @@ def submit(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     messages = []
     if request.method == 'POST':
-        form = SubmissionForm(environment,request.user,request.POST)
+        form = SubmissionForm(environment,request.user,request.POST,request.FILES)
         form.owner = request.user
         form.environment = environment
         if form.is_valid():
             form.save()
+            sub_name = request.FILES.get('name')
+            # upload_path = "upload/%s/%s/" % (environment.name,sub_name)
+            upload_path = "upload/%s/%s/" % (environment.name, request.user.username)
+            if os.path.isdir(upload_path):
+                pass
+            else:
+                os.makedirs(upload_path)
+            ckf = request.FILES.get("checkpoints_file",None)
+            with open(os.path.join(upload_path,"checkpoints"), "wb+") as destination:
+                for chunk in ckf.chunks():
+                    destination.write(chunk)
+            pgf = request.FILES.get("test_program_file", None)
+            with open(os.path.join(upload_path,"test_program.py"), "wb+") as destination:
+                for chunk in pgf.chunks():
+                    destination.write(chunk)
+            # upload_checkpoints(request.FILES['checkpoints_file'])
+            # upload_program(request.FILES['test_program_file'])
             messages.append('successed submit!')
             return render(request,'lb/environment.html',context={'messages':messages,
                                                                  'environment': environment})
@@ -165,3 +183,13 @@ def submit(request,pk):
         'form':form,
         'messages':messages,
         'environment':environment})
+
+def upload_checkpoints(f):
+    destination = open(os.path.join("media"))
+
+
+
+def upload_program(f):
+    with open('some/file/name.txt', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)

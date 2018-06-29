@@ -4,3 +4,4 @@ lb/migrations/
 lb/migrations/__pycache__/
 static
 static/*
+upload
