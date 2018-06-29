@@ -155,9 +155,8 @@ def submit(request,pk):
         form.environment = environment
         if form.is_valid():
             form.save()
-            sub_name = request.FILES.get('name')
-            # upload_path = "upload/%s/%s/" % (environment.name,sub_name)
-            upload_path = "upload/%s/%s/" % (environment.name, request.user.username)
+            sub_name = request.POST.get('name','')
+            upload_path = "upload/%s/%s/" % (environment.name, sub_name)
             if os.path.isdir(upload_path):
                 pass
             else:
