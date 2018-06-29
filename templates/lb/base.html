@@ -8,10 +8,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round" type='text/css'>
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		html,
 		body {
@@ -32,7 +32,7 @@
 		padding: 20px 0;
 		}
 		.footer{
-  margin-bottom: 5px;
+        margin-bottom: 5px;
 		}
   	</style>
 	{% block extra_head %}
@@ -48,6 +48,12 @@
 		</div>
 		<div>
 		<ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <form action="/search/" method="get" class="nav-link">
+                    <input type="text" name="q">
+                    <input type="submit" value="Search">
+                </form>
+            </li>
 			<li class="nav-item"><a class="nav-link" href="{% url 'lb:environment_list' %}"  >Environment</a></li>
 			{% if user.is_authenticated %}
 			<li class="dropdown">

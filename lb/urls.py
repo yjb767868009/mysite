@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^submission/(?P<pk>[0-9]+)/Discussion/$', views.submission_discussion, name='submission_discussion'),
     url(r'^accounts/profile/$', views.account_profile, name='account_profile'),
     url(r'^accounts/detail/(?P<username>[a-zA-Z0-9_\-\u4e00-\u9fa5]+)/$', views.account_detail, name='account_detail'),
-    # url(r'^submit/$', views.submit, name='submit'),
+    url(r'^submit/$', views.submit, name='submit'),
     url(r'^environment_list/$', views.environment_list, name='environment_list'),
-    # url(r'^search/$', views.search, name='search'),
+    url(r'^search/$', views.search, name='search'),
 ]

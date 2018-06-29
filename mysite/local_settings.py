@@ -1,4 +1,4 @@
-ngo-allauth Configuration variables you might like to change.
+#ngo-allauth Configuration variables you might like to change.
 #
 # DO NOT CHANGE THIS FILE. Instead, copy it to local_settings.py
 # and make your changes there.

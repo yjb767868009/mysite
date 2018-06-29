@@ -3,8 +3,8 @@
 {% block content %}
 <div>
 	{% if error_msg %}
-		<h3>{{ error_msg }}</h3>
-	{% endif %}
+		<h3 style="color: red;">{{ error_msg }}</h3>
+	{% else %}
 	
 	<ul class="list-group">
 		 {% for environment in environment_list %}
@@ -38,5 +38,7 @@
 			{% endif %}
 		</ul>
 	</div>
+    {% endif %}
+
 </div>
 {% endblock content%}

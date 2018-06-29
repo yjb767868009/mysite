@@ -2,12 +2,11 @@
 {% load crispy_forms_tags %}
 <p>submit</p>
 {% block content %}
-    <div><h4>Submission</h4></div>              
-    <form class="profile" method="post" enctype="multipart/form-data"               
-        action="{% url 'lb:submit' %}">
+    <div><h4>Submit</h4></div>
+    <form class="profile" method="post" enctype="multipart/form-data" action="{% url 'lb:submit' %}">
         {% csrf_token %}
-        {{ form|crispy }}
-        <button type="button" class="btn btn-primary" type="submit">SUBMIT</button>
-	<button type="button" class="btn">CANCEL</button>
+        {{ form |crispy}}
+        <input class="btn btn-primary" type="submit"/>
+	<a href=""><button type="button" class="btn">CANCEL</button></a>
     </form>
 {% endblock %}

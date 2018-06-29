@@ -1,27 +1,8 @@
-{% extends 'lb/base.html' %}
+{% extends 'lb/environment_head.html' %}
 {% load staticfiles %}
 {% load comments %}
 {% load comments_xtd %}
-{% block content %}
-<div class="media">
-	<div class="media-left" href="#">
-		<img class="media-object" src="{{environment.images.url}}" alt="images" style="width:400px">
-	</div>
-	<div class="media-body">
-		<h1>{{ environment.name }}</h1>
-		<p>{{environment.short_des}}</p>
-		<p class="text-muted">passing line:{{ environment.passing_line }}</p>
-		<div class= "text-right" style="width:100;border:0px">
-			<small class="text-muted">Participants:</small>
-			<small class="text-muted">{{ environment.join_nb }}</small>
-		</div>
-		<div class= "text-right" style="width:100;border:0px">
-			<small class="text-muted">Pub date:</small>
-			<small class="text-muted">{{ environment.pub_date }}</small>
-		</div>
-		<span class="badge badge-secondary">{{environment.solved}}</span>
-	</div>
-</div>
+{% block envthing %}
 <ul class="nav nav-tabs">
 	<li><a href="{% url 'lb:environment' environment.pk%}">Overview</a></li>
 	<li class="active"><a href="#">Leaderboard</a></li>
@@ -49,4 +30,4 @@
 		{% endfor %}
 		</table>
 </div>
-{% endblock content%}
+{% endblock envthing%}

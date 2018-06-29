@@ -58,7 +58,7 @@ def environment(request,pk):
     submission_list = Submission.objects.filter(environment=environment)
     participants_list = environment.participants.all()
     join_nb = 0
-    for participant in participants_list:
+    for _ in participants_list:
         join_nb=join_nb+1
     return render(request,'lb/environment.html',context={'environment':environment,
                                                                 'join_nb':join_nb,
@@ -69,18 +69,39 @@ def environment(request,pk):
 def environment_leaderboard(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     submission_list = Submission.objects.filter(environment=environment)
-    return render(request,'lb/environment_leaderboard.html',context={'environment':environment,
-                                                                'submission_list':submission_list})
+    participants_list = environment.participants.all()
+    join_nb = 0
+    for _ in participants_list:
+        join_nb=join_nb+1
+    return render(request,'lb/environment_leaderboard.html',context={
+        'environment':environment,
+        'submission_list':submission_list,
+        'join_nb': join_nb
+    })
 
 def environment_discussion(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
-    return render(request,'lb/environment_discussion.html',context={'environment':environment})
+    participants_list = environment.participants.all()
+    join_nb = 0
+    for _ in participants_list:
+        join_nb=join_nb+1
+    return render(request,'lb/environment_discussion.html',context={
+        'environment':environment,
+        'join_nb': join_nb
+    })
 
 def environment_category(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     category_list = environment.category.all()
-    return render(request,'lb/environment_category.html',context={'environment':environment,
-                                                                'category_list':category_list})
+    participants_list = environment.participants.all()
+    join_nb = 0
+    for _ in participants_list:
+        join_nb=join_nb+1
+    return render(request,'lb/environment_category.html',context={
+        'environment':environment,
+        'category_list':category_list,
+        'join_nb': join_nb
+    })
 
 def submission(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
@@ -117,20 +138,24 @@ def search(request):
     q = request.GET.get('q')
     error_msg = ''
     if not q:
-        error_msg = ''
+        error_msg = 'Please submit a search term.'
         return render(request,'lb/search.html',context={'error_msg':error_msg})
-    environment_list = Environment.objects.filter(title__contains = q)
-    environment_list = get_page(request,environment)
+    environment_list = Environment.objects.filter(name__contains = q)
+    environment_list = get_page(request,environment_list)
     return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
 @login_required
 def submit(request):
     messages = []
     if request.method == 'POST':
-        request_dic = getattr(request, 'POST')
-        form = SubmissionForm(request.POST,request.FILES)
+        form = SubmissionForm(request.user,request.POST)
+        # form.owner = request.user
         if form.is_valid():
             form.save()
             messages.append('successed submit!')
-    form = SubmissionForm()
+            return render(request,'lb/submit.html',context={'messages':messages})
+        else:
+            messages.append('error1')
+    else:
+        form = SubmissionForm(request)
     return render(request, 'lb/submit.html', context={'form':form,'messages':messages,})
