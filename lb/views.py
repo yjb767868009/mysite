@@ -145,17 +145,23 @@ def search(request):
     return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
 @login_required
-def submit(request):
+def submit(request,pk):
+    environment = get_object_or_404(Environment, pk=pk)
     messages = []
     if request.method == 'POST':
-        form = SubmissionForm(request.user,request.POST)
-        # form.owner = request.user
+        form = SubmissionForm(environment,request.user,request.POST)
+        form.owner = request.user
+        form.environment = environment
         if form.is_valid():
             form.save()
             messages.append('successed submit!')
-            return render(request,'lb/submit.html',context={'messages':messages})
+            return render(request,'lb/environment.html',context={'messages':messages,
+                                                                 'environment': environment})
         else:
             messages.append('error1')
     else:
-        form = SubmissionForm(request)
-    return render(request, 'lb/submit.html', context={'form':form,'messages':messages,})
+        form = SubmissionForm(environment,request)
+    return render(request, 'lb/submit.html', context={
+        'form':form,
+        'messages':messages,
+        'environment':environment})

@@ -10,17 +10,19 @@ class UserDetailForm(ModelForm):
         fields = ('username', 'about','first_name','last_name','signature', 'title','department')
 
 class SubmissionForm(ModelForm):
-    #checkpoints_file = forms.FileField()
-    #test_model_file = forms.FileField()
+    # checkpoints_file = forms.FileField()
+    # test_model_file = forms.FileField()
     class Meta:
         model = Submission
-        fields = ('name','description','environment','allow_comments')
+        fields = ('name','description','allow_comments')
         # fields = '__all__'
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self,environment, user, *args, **kwargs):
         self.owner = user
+        self.environment = environment
         super(SubmissionForm, self).__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         self.instance.owner = self.owner
+        self.instance.environment = self.environment
         super(SubmissionForm, self).save(*args, **kwargs)

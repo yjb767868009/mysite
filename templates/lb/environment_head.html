@@ -22,7 +22,7 @@
 		</div>
 		<span class="badge badge-secondary">{{environment.solved}}</span>
         <div class= "text-right" style="width:100;border:0px">
-            <a href="{% url 'lb:submit' %}"><button class="btn btn-primary">SUBMIT</button></a>
+            <a href="{% url 'lb:submit' environment.pk %}"><button class="btn btn-primary">SUBMIT</button></a>
         </div>
 	</div>
 </div>
