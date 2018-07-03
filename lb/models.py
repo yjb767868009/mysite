@@ -87,7 +87,8 @@ class Submission(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
     allow_comments = models.BooleanField('allow comments', default=True)
-    score = models.IntegerField(default=0)
+    # score = models.FloatField(max_digits=10, decimal_places=4, default=0)
+    score = models.FloatField(default=0.0)
 
     class Meta:
         verbose_name = 'submisssion'

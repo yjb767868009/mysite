@@ -150,12 +150,13 @@ def submit(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     messages = []
     if request.method == 'POST':
+
         form = SubmissionForm(environment,request.user,request.POST,request.FILES)
         form.owner = request.user
         form.environment = environment
         if form.is_valid():
-            form.save()
             sub_name = request.POST.get('name','')
+
             upload_path = "model/%s/%s/" % (environment.name, sub_name)
             if os.path.isdir(upload_path):
                 pass
@@ -176,8 +177,17 @@ def submit(request,pk):
             print(run_commend)
             os.system(run_commend)
 
-            # upload_checkpoints(request.FILES['checkpoints_file'])
-            # upload_program(request.FILES['test_program_file'])
+            score_path = os.path.join(upload_path,'score.txt')
+            score_file = open(score_path,'r')
+            score = 0
+            try:
+                score = score_file.read()
+                print(score)
+            finally:
+                score_file.close()
+            form.add_socre(score)
+
+            form.save()
             messages.append('successed submit!')
             return render(request,'lb/environment.html',context={'messages':messages,
                                                                  'environment': environment})

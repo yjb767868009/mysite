@@ -25,4 +25,8 @@ class SubmissionForm(ModelForm):
     def save(self, *args, **kwargs):
         self.instance.owner = self.owner
         self.instance.environment = self.environment
+        self.instance.score = self.score
         super(SubmissionForm, self).save(*args, **kwargs)
+
+    def add_socre(self,score):
+        self.score = score
