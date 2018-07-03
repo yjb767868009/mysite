@@ -28,4 +28,8 @@ urlpatterns = [
     # url(r'^notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^accounts/',include('allauth.urls')),
     url(r'', include('ckeditor_uploader.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.MODEL_URL, document_root=settings.MODEL_ROOT)
+
+urlpatterns +=[
+    # url(r'^upload/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.UPLOAD_ROOT }),
+]

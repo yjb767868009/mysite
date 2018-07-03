@@ -156,7 +156,7 @@ def submit(request,pk):
         if form.is_valid():
             form.save()
             sub_name = request.POST.get('name','')
-            upload_path = "upload/%s/%s/" % (environment.name, sub_name)
+            upload_path = "model/%s/%s/" % (environment.name, sub_name)
             if os.path.isdir(upload_path):
                 pass
             else:

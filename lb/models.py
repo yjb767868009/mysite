@@ -53,21 +53,27 @@ class Environment(models.Model):
     images = ProcessedImageField(upload_to='environment',
                                  default='environment/default.png', 
                                  processors=[ResizeToFill(100,100)],)
+
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = 'environment'
         verbose_name_plural = verbose_name
         ordering = ['-pk']
+
     def click_increase(self):
         self.click_count += 1
         self.save(update_fields=['click_count'])
+
     def get_absolute_url(self):
         return reverse('lb:environment_discussion', kwargs={'pk':self.pk})
+
     def save(self, *args, **kwargs):
         if len(self.images.name.split('/')) == 1:
             self.image.name = self.name + '/' + self.image.name
         super(Environment, self).save()
+
     def get_images_url(self):
         url = self.images.url
         file_name = url.split('/')[-1]
@@ -82,14 +88,21 @@ class Submission(models.Model):
     environment = models.ForeignKey(Environment,on_delete=models.CASCADE)
     allow_comments = models.BooleanField('allow comments', default=True)
     score = models.IntegerField(default=0)
+
     class Meta:
         verbose_name = 'submisssion'
         verbose_name_plural = verbose_name
         ordering = ['-score']
+
     def __str__(self):
         return self.name
+
     def get_absolute_url(self):
         return reverse('lb:submission_discussion', kwargs={'pk':self.pk})
+
+    def get_gif_url(self):
+        url = '/model/'+self.environment.name+'/'+self.name+'/'+'bestresult.gif'
+        return url
 
 class EnvironmentCommentModerator(SpamModerator):
     email_notification = True

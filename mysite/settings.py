@@ -257,6 +257,13 @@ STATIC_DIRS = (
     os.path.join(BASE_DIR,'static/')
 )
 
+MODEL_URL = '/model/'
+
+MODEL_ROOT = os.path.join(BASE_DIR, 'model')
+
+MODEL_DIRS = (
+    os.path.join(BASE_DIR,'model/')
+)
 try:
     from local_settings import *  # noqa
 except ImportError:
