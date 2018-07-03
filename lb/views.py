@@ -169,6 +169,13 @@ def submit(request,pk):
             with open(os.path.join(upload_path,"test_program.py"), "wb+") as destination:
                 for chunk in pgf.chunks():
                     destination.write(chunk)
+            file_path = os.path.dirname(os.path.abspath('manage.py'))
+            run_path=os.path.join(file_path,upload_path)
+            run_path=os.path.join(run_path,"test_program.py")
+            run_commend="python "+run_path+" --path "+upload_path
+            print(run_commend)
+            os.system(run_commend)
+
             # upload_checkpoints(request.FILES['checkpoints_file'])
             # upload_program(request.FILES['test_program_file'])
             messages.append('successed submit!')
@@ -182,13 +189,3 @@ def submit(request,pk):
         'form':form,
         'messages':messages,
         'environment':environment})
-
-def upload_checkpoints(f):
-    destination = open(os.path.join("media"))
-
-
-
-def upload_program(f):
-    with open('some/file/name.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
