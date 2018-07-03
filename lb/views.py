@@ -1,4 +1,5 @@
 import logging
+import re
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -145,6 +146,13 @@ def search(request):
     environment_list = get_page(request,environment_list)
     return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
+def upload(env_name,sub_name):
+    upload_path = "model/%s/%s/" % (env_name, sub_name)
+    if os.path.isdir(upload_path):
+        pass
+    else:
+        os.makedirs(upload_path)
+
 @login_required
 def submit(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
@@ -156,6 +164,10 @@ def submit(request,pk):
         form.environment = environment
         if form.is_valid():
             sub_name = request.POST.get('name','')
+
+            if ' ' in sub_name:
+                messages.append('Please input name without spaces')
+                return render(request, 'lb/submit.html', context={'form':form,'error_messages': messages,'environment': environment})
 
             upload_path = "model/%s/%s/" % (environment.name, sub_name)
             if os.path.isdir(upload_path):
@@ -182,10 +194,13 @@ def submit(request,pk):
             score = 0
             try:
                 score = score_file.read()
-                print(score)
+                # print(score)
             finally:
                 score_file.close()
             form.add_socre(score)
+
+            if float(score) > environment.passing_line:
+                environment.solved = 'solved'
 
             form.save()
             messages.append('successed submit!')

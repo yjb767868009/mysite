@@ -3,9 +3,19 @@
 <p>submit</p>
 {% block content %}
     <div><h4>Submit</h4></div>
+    {% if error_messages %}
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			    <ul>
+				    {% for message in error_messages %}
+				        <p>{{message}}</p>
+				    {% endfor %}
+			    </ul>
+		    </div>
+    {% endif %}
     <form class="profile" method="post" enctype="multipart/form-data" action="{% url 'lb:submit' environment.pk %}">
         {% csrf_token %}
-        {{ form |crispy}}
+        {{ form |crispy }}
         <input class="btn btn-primary" type="submit"/>
 	<a href="{% url 'lb:environment' environment.pk %}"><button type="button" class="btn">CANCEL</button></a>
     </form>
