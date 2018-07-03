@@ -1,7 +1,5 @@
 # Python:
 db.sqlite3
-lb/migrations/
-lb/migrations/__pycache__/
 static
-static/*
 upload
+/log/
