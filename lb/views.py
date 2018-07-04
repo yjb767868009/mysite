@@ -146,12 +146,42 @@ def search(request):
     environment_list = get_page(request,environment_list)
     return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
-def upload(env_name,sub_name):
-    upload_path = "model/%s/%s/" % (env_name, sub_name)
+
+def upload(form, environment, sub_name, FILES):
+    upload_path = "model/%s/%s/" % (environment.name, sub_name)
     if os.path.isdir(upload_path):
         pass
     else:
         os.makedirs(upload_path)
+    ckf = FILES.get("checkpoints_file", None)
+    with open(os.path.join(upload_path, "checkpoints"), "wb+") as destination:
+        for chunk in ckf.chunks():
+            destination.write(chunk)
+    pgf = FILES.get("test_program_file", None)
+    with open(os.path.join(upload_path, "test_program.py"), "wb+") as destination:
+        for chunk in pgf.chunks():
+            destination.write(chunk)
+    file_path = os.path.dirname(os.path.abspath('manage.py'))
+    run_path = os.path.join(file_path, upload_path)
+    run_path = os.path.join(run_path, "test_program.py")
+    run_commend = "python " + run_path + " --path " + upload_path
+    print(run_commend)
+    os.system(run_commend)
+
+    score_path = os.path.join(upload_path, 'score.txt')
+    score_file = open(score_path, 'r')
+    score = 0
+    try:
+        score = score_file.read()
+        # print(score)
+    finally:
+        score_file.close()
+    form.add_socre(score)
+
+    if float(score) > environment.passing_line:
+        environment.solved = 'solved'
+    form.save()
+
 
 @login_required
 def submit(request,pk):
@@ -169,40 +199,8 @@ def submit(request,pk):
                 messages.append('Please input name without spaces')
                 return render(request, 'lb/submit.html', context={'form':form,'error_messages': messages,'environment': environment})
 
-            upload_path = "model/%s/%s/" % (environment.name, sub_name)
-            if os.path.isdir(upload_path):
-                pass
-            else:
-                os.makedirs(upload_path)
-            ckf = request.FILES.get("checkpoints_file",None)
-            with open(os.path.join(upload_path,"checkpoints"), "wb+") as destination:
-                for chunk in ckf.chunks():
-                    destination.write(chunk)
-            pgf = request.FILES.get("test_program_file", None)
-            with open(os.path.join(upload_path,"test_program.py"), "wb+") as destination:
-                for chunk in pgf.chunks():
-                    destination.write(chunk)
-            file_path = os.path.dirname(os.path.abspath('manage.py'))
-            run_path=os.path.join(file_path,upload_path)
-            run_path=os.path.join(run_path,"test_program.py")
-            run_commend="python "+run_path+" --path "+upload_path
-            print(run_commend)
-            os.system(run_commend)
+            upload(form,environment,sub_name,request.FILES)
 
-            score_path = os.path.join(upload_path,'score.txt')
-            score_file = open(score_path,'r')
-            score = 0
-            try:
-                score = score_file.read()
-                # print(score)
-            finally:
-                score_file.close()
-            form.add_socre(score)
-
-            if float(score) > environment.passing_line:
-                environment.solved = 'solved'
-
-            form.save()
             messages.append('successed submit!')
             return render(request,'lb/environment.html',context={'messages':messages,
                                                                  'environment': environment})
