@@ -147,8 +147,14 @@ def search(request):
     return render(request,'lb/search.html',context={'error_msg':error_msg,'environment_list':environment_list})
 
 
-def upload(form, environment, sub_name, FILES):
-    upload_path = "model/%s/%s/" % (environment.name, sub_name)
+def upload(form, user, environment, sub_name, FILES):
+
+    upload_path = "model/%s/%s/%s/" % (environment.name, user.username, sub_name)
+    sub_time = datetime.datetime.now()
+    sub_time_str = sub_time.strftime("%Y-%m-%d-%H-%M-%S-%f")
+    upload_path = os.path.join(upload_path, sub_time_str)
+    upload_path +='/'
+    # print('upload_path = '+upload_path)
     if os.path.isdir(upload_path):
         pass
     else:
@@ -180,6 +186,8 @@ def upload(form, environment, sub_name, FILES):
 
     if float(score) > environment.passing_line:
         environment.solved = 'solved'
+    form.add_time(sub_time)
+
     form.save()
 
 
@@ -199,7 +207,7 @@ def submit(request,pk):
                 messages.append('Please input name without spaces')
                 return render(request, 'lb/submit.html', context={'form':form,'error_messages': messages,'environment': environment})
 
-            upload(form,environment,sub_name,request.FILES)
+            upload(form,request.user,environment,sub_name,request.FILES)
 
             messages.append('successed submit!')
             return render(request,'lb/environment.html',context={'messages':messages,

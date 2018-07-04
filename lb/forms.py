@@ -26,7 +26,11 @@ class SubmissionForm(ModelForm):
         self.instance.owner = self.owner
         self.instance.environment = self.environment
         self.instance.score = self.score
+        self.instance.sub_date = self.sub_date
         super(SubmissionForm, self).save(*args, **kwargs)
 
     def add_socre(self,score):
         self.score = score
+
+    def add_time(self,sub_date):
+        self.sub_date = sub_date

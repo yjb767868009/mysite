@@ -1,7 +1,7 @@
 import datetime
 import hashlib
 import urllib
-
+import os
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
@@ -50,7 +50,7 @@ class Environment(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     click_count = models.PositiveIntegerField(default=0)
     solved = models.CharField(max_length=20,default="unresolved")
-    images = ProcessedImageField(upload_to='environment',
+    images = ProcessedImageField(upload_to='environ`ment',
                                  default='environment/default.png', 
                                  processors=[ResizeToFill(100,100)],)
 
@@ -102,7 +102,9 @@ class Submission(models.Model):
         return reverse('lb:submission_discussion', kwargs={'pk':self.pk})
 
     def get_gif_url(self):
-        url = '/model/'+self.environment.name+'/'+self.name+'/'+'bestresult.gif'
+        url = '/model/'+self.environment.name+'/'+self.owner.username+'/'+self.name+'/'
+        url = os.path.join(url, self.sub_date.strftime("%Y-%m-%d-%H-%M-%S-%f"))
+        url +='/'+'bestresult.gif'
         return url
 
 class EnvironmentCommentModerator(SpamModerator):
