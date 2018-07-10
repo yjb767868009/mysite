@@ -44,15 +44,19 @@
 	<nav class="navbar navbar-default navbar-inverse" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Logo</a>
+			<a class="navbar-brand" href="/">
+                <img style="height: 50px" src="/media/logo.jpg">
+            </a>
 		</div>
 		<div>
 		<ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-                <form action="/search/" method="get" class="nav-link">
-                    <input type="text" name="q">
-                    <input type="submit" value="Search">
-                </form>
+                <li class="nav-link">
+                    <form action="{% url 'lb:search' %}" method="get" class="nav-link">
+                        <input type="text" name="q">
+                        <input type="submit" value="Search">
+                    </form>
+                </li>
             </li>
 			<li class="nav-item"><a class="nav-link" href="{% url 'lb:environment_list' %}"  >Environment</a></li>
 			{% if user.is_authenticated %}
