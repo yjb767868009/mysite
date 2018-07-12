@@ -1,7 +1,7 @@
 # Python:
 db.sqlite3
-static
 upload
 /log/
 .idea
 model
+/static/

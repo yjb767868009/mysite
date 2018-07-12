@@ -14,8 +14,8 @@ logger = logging.getLogger('lb.views')
 def global_setting(request):
     return {'SITE_NAME':settings.SITE_NAME,'STIE_DESCP':settings.SITE_DESCP,'SITE_KEYWORDS':settings.SITE_KEYWORDS}
 
-def get_page(request,environment_list):
-    paginator = Paginator(environment_list,5)
+def get_page(request,environment_list,num=5):
+    paginator = Paginator(environment_list,num)
     page = request.GET.get('page',1)
     try:
         environment_list = paginator.page(page)
@@ -25,7 +25,7 @@ def get_page(request,environment_list):
 
 def index(request):
     environment_list = Environment.objects.order_by("-click_count")
-    environment_list = get_page(request,environment_list)
+    environment_list = get_page(request,environment_list,num=6)
     return render(request, 'lb/index.html', context={'environment_list': environment_list})
 
 def environment_list(request):

@@ -2,121 +2,166 @@
 {% load staticfiles %}
 {% load lb_extras %}
 <html>
-  <head>
-	<title>{% block title %}{% endblock %}</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round" type='text/css'>
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
-	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style type="text/css">
-		html,
-		body {
-	  		background: #efefef;
-  			font-family: 'Varela Round';
-			margin:0
-		}
-		.content{
-		min-height:100%;
-		margin:0 auto -50xp;
-		}
-		/* Make the image fully responsive */
-		.carousel-inner img {
-		width: 100%;
-		height: 100%;
-		}
-		.post-footer, .comments {
-		padding: 20px 0;
-		}
-		.footer{
-        margin-bottom: 5px;
-		}
-  	</style>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round" type='text/css'>
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/style.css'%}">
+	    <style type="text/css">
+		    html,
+		    body {
+	  		    background: #efefef;
+  			    font-family: 'Varela Round';
+			    margin:0
+            }
+  	    </style>
 	{% block extra_head %}
 	{% endblock %}
   </head>
 <body>
-<div class="content">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
 
-	<nav class="navbar navbar-default navbar-inverse" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/">
-                <img style="height: 50px" src="/media/logo.jpg">
-            </a>
-		</div>
-		<div>
-		<ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <li class="nav-link">
-                    <form action="{% url 'lb:search' %}" method="get" class="nav-link">
-                        <input type="text" name="q">
-                        <input type="submit" value="Search">
-                    </form>
-                </li>
-            </li>
-			<li class="nav-item"><a class="nav-link" href="{% url 'lb:environment_list' %}"  >Environment</a></li>
-			{% if user.is_authenticated %}
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					{{ user.email|gravatar:50 }}
-					<b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="{% url 'lb:account_detail' user.username %}">{{user.username}}</a></li>
-					<li><a href="{% url 'lb:account_profile' %}">Profile</a></li>
-					<li><a href="{% url 'account_change_password' %}">Account Setting</a></li>
-					<li class="divider"></li>
-					<li><a href="{% url 'account_logout' %}">Log Out</a></li>
-				</ul>
-			</li>
-			{% else %}
-			<li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Sign In</a></li>
-			<li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Sign UP</a></li>
-			{% endif %}
-		</ul>
-		</div>	
-	</div>
-	</nav>
-	<div class="container">
-		{% if messages %}
-		<div class="alert alert-success alert-dismissable">
-          		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<ul>
-				{% for message in messages %}
-				<p>{{message}}</p>
-				{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
-		<div style="height:1000px">
-			{% block content %}
-			{% endblock %}
-		</div>
-			{% block extra_body %}
-			{% endblock %}
+    <!-- ##### Header Start ##### -->
+    <header class="header-area">
 
-	</div>
-</div>
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <div class="container">
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
 
-<div class="footer">
-	<nav class="navbar-default navbar-inverse" role="navigation" style="height:100px">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">Logo</a>
-			</div>
-			<div class="nav navbar-nav navbar-right">
-				<li><a class="nav-link" href="#">FAQ</a></li>
-				<li><a class="nav-link" href="#">About us</a></li>
-				<li><a class="nav-link" href="#">Privacy</a></li>
-				<li><a class="nav-link" href="#">Terms of Service</a></li>
-				<li><a class="nav-link" href="#">Github</a></li>
-			</div>
-		</div>
-	</nav>
-</div>
+                    <!-- Logo -->
+                    <a class="nav-brand" href="{% url 'lb:index' %}"><img src="/media/logo.jpg" alt="Logo" style="height: 80px"></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{% url 'lb:index' %}">Home</a></li>
+                                <li><a href="{% url 'lb:environment_list' %}">Environment</a></li>
+                            </ul>
+
+                            <!-- Search Button -->
+                            <div class="search-area">
+                                <form action="{% url 'lb:search' %}" method="get">
+                                    <input type="search" name="q" id="search" placeholder="Search">
+                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                {% if user.is_authenticated %}
+                                    <div class="login-state d-flex align-items-center">
+                                        <div class="user-name mr-30">
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                                                    <a class="dropdown-item" href="{% url 'lb:account_detail' user.username %}">Detail</a>
+                                                    <a class="dropdown-item" href="{% url 'lb:account_profile' %}">Profile</a>
+                                                    <a class="dropdown-item" href="{% url 'account_change_password' %}">Setting</a>
+                                                    <a class="dropdown-item" href="{% url 'account_logout' %}">>LogOut</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="userthumb">
+                                            {{ user.email|gravatar:50 }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                <a href="{% url 'account_signup' %}" class="btn">Register</a>
+                                <a href="{% url 'account_login' %}" class="btn">Login</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+
+                </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header End ##### -->
+
+    <!-- ##### Message Start ##### -->
+    <div class="content">
+        {% if messages %}
+            <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <ul>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <!-- ##### Message End ##### -->
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="classynav">
+                            <ul>
+                                <li><a class="nav-link" style="color:white" href="#">FAQ</a></li>
+                                <li><a class="nav-link" style="color:white" href="#">About us</a></li>
+                                <li><a class="nav-link" style="color:white" href="#">Privacy</a></li>
+                                <li><a class="nav-link" style="color:white" href="#">Terms of Service</a></li>
+                                <li><a class="nav-link" style="color:white" href="#">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
 </body>
+    <!-- ##### All Javascript Script ##### -->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script-->
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/active.js' %}"></script>
 </html>
