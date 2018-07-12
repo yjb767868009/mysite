@@ -21,19 +21,19 @@
     <div class="clever-description">
         <div class="about-course mb-30">
             {% get_comment_count for environment as comment_count %}
-            <h3>Discussion</h3>
+            <h2>Discussion</h2>
             {% if comment_count %}
                 {{ comment_count }} comments have been posted.
                 <hr/>
                 <div class="comments">
-                    {% render_xtdcomment_tree for environment allow_flagging allow_feedback show_feedback%}
+                    {% render_xtdcomment_tree for environment allow_feedback show_feedback%}
                 </div>
             {% else %}
                 <p>There has no posts</p>
             {% endif %}
             {% if environment.allow_comments %}
                 <div class="comment">
-                    <h4 class="text-center">Your comment</h4>
+                    <h2 class="text-center">Your comment</h2>
                     <div class="well">
                         {% render_comment_form for environment %}
                     </div>

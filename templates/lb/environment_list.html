@@ -1,37 +1,62 @@
 {% extends "lb/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div>
-	<ul class="list-group">
- 		{% for environment in environment_list %}
-			<div class="list-group-item">
-				<div class="media">
-					<a class="media-left" href="{% url 'lb:environment' environment.pk%}">
-						<img class="media-object" src="{{environment.images.url}}" alt="media" height="100">
-					</a>
-					<div class="media-body">
-						<h4><a href="{% url 'lb:environment' environment.pk%}">{{ environment.name }}</a></h4>
-						<p style="color: #666666">{{ environment.short_des }}</p>
-						<span class="badge badge-secondary">{{environment.solved}}</span>
-					</div>
-				</div>
-			</div>
-		{% empty  %}
-			<h2>no environment</h2>
-		{% endfor %}
-	</ul>
-	<div>
-		<ul class="pagination center" style="margin-top:20px">
-			{% if environment_list.has_previous %}
-			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">{{environment_list.previous_page_number}}</a></li>
-			{% endif %}
-			<li class="page-item active"><a class="page-link">{{environment_list.number}}</a></li>
-			{% if environment_list.has_next %}
-			<li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">{{environment_list.next_page_number}}</a></li>
-			<li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">Next</a></li>
-			{% endif %}
-		</ul>
-	</div>
-</div>
+    <!-- ##### Environments Start ##### -->
+    <section class="popular-courses-area section-padding-100-0" style="background-image: url({% static 'img/core-img/texture.png' %});">
+        <div class="container">
+
+            <div class="row">
+                {% for environment in environment_list %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                            <a href="{% url 'lb:environment_detail' environment.pk%}"><img src="{{environment.images.url}}" alt=""></a>
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <a href="{% url 'lb:environment_detail' environment.pk%}"><h4>{{ environment.name }}</h4></a>
+                                <div class="meta d-flex align-items-center">
+                                {% for category in environment.category.all %}
+                                    <a href="#">{{ category.name }}</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                {% endfor %}
+                                    <a href="#">Category1</a>
+                                </div>
+                                <p>{{ environment.short_des }}</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> {{environment.solved}}
+                                    </div>
+                                    <div class="rating">
+                                        <i class="fa fa-star" aria-hidden="true"></i> 4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="{% url 'lb:environment_detail' environment.pk%}" class="free">Join</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                {% empty  %}
+			        <h2>no environment</h2>
+                {% endfor %}
+            </div>
+            <div>
+                    <ul class="pagination center" style="margin-top:20px">
+                        {% if environment_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ environment_list.previous_page_number }}">{{environment_list.previous_page_number}}</a></li>
+                        {% endif %}
+                        <li class="page-item active"><a class="page-link">{{environment_list.number}}</a></li>
+                        {% if environment_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">{{environment_list.next_page_number}}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ environment_list.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Environments End ##### -->
+
 {% endblock content%}

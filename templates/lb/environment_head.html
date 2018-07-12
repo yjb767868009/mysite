@@ -5,7 +5,7 @@
 {% block title %}{{ environment.name }}{% endblock %}
 {% block content %}
     <!-- ##### Single Course Intro Start ##### -->
-    <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url({{environment.images.url}});">
+    <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url({{environment.images.url}});height: 300px">
         <!-- Content -->
         <div class="single-course-intro-content text-center">
             <h3>{{ environment.name }}</h3>
@@ -40,16 +40,16 @@
                             <h4>Detail</h4>
                             <ul class="features-list">
                                 <li>
-                                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> Passingline</h6>
-                                    <h6>{{ environment.passing_line }}</h6>
+                                    <h5><i class="fa fa-bell" aria-hidden="true"></i> Passingline</h5>
+                                    <h5>{{ environment.passing_line }}</h5>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-bell" aria-hidden="true"></i> Participants</h6>
-                                    <h6>{{ join_nb }}</h6>
+                                    <h5><i class="fa fa-user" aria-hidden="true"></i> Participants</h5>
+                                    <h5>{{ join_nb }}</h5>
                                 </li>
                                 <li>
-                                    <h6><i class="fa fa-file" aria-hidden="true"></i> PubDate</h6>
-                                    <h6>{{ environment.pub_date }}</h6>
+                                    <h5><i class="fa fa-calendar" aria-hidden="true"></i> PubDate</h5>
+                                    <h5>{{ environment.pub_date }}</h5>
                                 </li>
                             </ul>
                         </div>

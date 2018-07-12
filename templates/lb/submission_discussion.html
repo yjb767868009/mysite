@@ -5,12 +5,20 @@
 
 {% block subthing %}
 <div>
-	<ul id="myTab" class="nav nav-tabs">
-		<li><a href="{% url 'lb:submission' submission.pk%}">Overview</a></li>
-		<li><a href="{% url 'lb:submission_bestrwards' submission.pk%}">BestRwards</a></li>
-		<li><a href="{% url 'lb:submission_episodes' submission.pk%}">Episodes</a></li>
-		<li class="active"><a href="#">Discussion</a></li>
-	</ul>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:submission_detail' submission.pk %}">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:submission_bestrwards' submission.pk %}">BestRwards</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:submission_episodes' submission.pk %}">Episodes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'lb:submission_discussion' submission.pk %}">Discussion</a>
+        </li>
+    </ul>
 	<div class="well well-lg">
 		{% get_comment_count for submission as comment_count %}
 		<h3>Discussion</h3>

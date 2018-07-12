@@ -32,7 +32,7 @@
                 </thead>
                 {% for submission in submission_list %}
                 <tbody>
-                    <td><a href="{% url 'lb:submission' submission.pk %}">{{ submission.name }}</a></td>
+                    <td><a href="{% url 'lb:submission_detail' submission.pk %}">{{ submission.name }}</a></td>
                     <td><a href="{% url 'lb:account_detail'  submission.owner.username %}">{{ submission.owner }}</a></td>
                     <td>{{ submission.score}}</td>
                     <td>{{ submission.sub_date }}</td>

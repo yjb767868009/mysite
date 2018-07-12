@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <!-- Hero Content -->
                     <div class="hero-content text-center">
-                        <h2>This is a platform for deep learning</h2>
+                        <h2>Competition Platform for Deep Learning</h2>
                         {% if user.is_authenticated %}
                             <a href="{% url 'lb:environment_list' %}" class="btn clever-btn">Look Environments</a>
                         {% else %}
@@ -44,9 +44,8 @@
                                 <div class="meta d-flex align-items-center">
                                 {% for category in environment.category.all %}
                                     <a href="#">{{ category.name }}</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <span> </span>
                                 {% endfor %}
-                                    <a href="#">Category1</a>
                                 </div>
                                 <p>{{ environment.short_des }}</p>
                             </div>

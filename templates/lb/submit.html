@@ -17,6 +17,6 @@
         {% csrf_token %}
         {{ form |crispy }}
         <input class="btn btn-primary" type="submit"/>
-	<a href="{% url 'lb:environment' environment.pk %}"><button type="button" class="btn">CANCEL</button></a>
+	<a href="{% url 'lb:environment_detail' environment.pk %}"><button type="button" class="btn">CANCEL</button></a>
     </form>
 {% endblock %}

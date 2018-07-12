@@ -30,7 +30,7 @@ def index(request):
 
 def environment_list(request):
     environment_list = Environment.objects.order_by("-pub_date")
-    environment_list = get_page(request,environment_list)
+    environment_list = get_page(request,environment_list,num=9)
     return render(request, 'lb/environment_list.html', context={'environment_list': environment_list})
 
 @login_required
@@ -45,13 +45,17 @@ def account_profile(request):
     form = UserDetailForm(instance=request.user)
     return render(request, 'account/account_profile.html', context={'form':form,'messages':messages,})
 
+
 def account_detail(request,username):
     subscriber = get_object_or_404(User,username=username)
     submission_list = Submission.objects.filter(owner=subscriber)
     environment_list = Environment.objects.filter(participants=subscriber)
-    return render(request, 'account/account_detail.html', context={'subscriber':subscriber,
-                                                                'submission_list':submission_list,
-                                                                'environment_list':environment_list})
+    return render(request, 'account/account_detail.html', context={
+        'subscriber': subscriber,
+        'submission_list':submission_list,
+        'environment_list':environment_list
+    })
+
 
 def environment_detail(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
@@ -62,14 +66,18 @@ def environment_detail(request,pk):
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
-    return render(request, 'lb/environment_detail.html', context={'environment':environment,
-                                                                'join_nb':join_nb,
-                                                                'category_list':category_list,
-                                                                'submission_list':submission_list,
-                                                                'participants_list':participants_list})
+    return render(request, 'lb/environment_detail.html', context={
+        'environment':environment,
+        'join_nb':join_nb,
+        'category_list': category_list,
+        'submission_list': submission_list,
+        'participants_list': participants_list
+    })
+
 
 def environment_leaderboard(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
+    category_list = environment.category.all()
     submission_list = Submission.objects.filter(environment=environment)
     participants_list = environment.participants.all()
     join_nb = 0
@@ -77,37 +85,45 @@ def environment_leaderboard(request,pk):
         join_nb=join_nb+1
     return render(request,'lb/environment_leaderboard.html',context={
         'environment':environment,
-        'submission_list':submission_list,
+        'submission_list': submission_list,
+        'category_list': category_list,
         'join_nb': join_nb
     })
 
+
 def environment_discussion(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
+    category_list = environment.category.all()
     participants_list = environment.participants.all()
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
     return render(request,'lb/environment_discussion.html',context={
-        'environment':environment,
+        'environment': environment,
+        'category_list': category_list,
         'join_nb': join_nb
     })
 
+
 def environment_download(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
+    category_list = environment.category.all()
     participants_list = environment.participants.all()
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
     return render(request,'lb/environment_category.html',context={
         'environment':environment,
+        'category_list': category_list,
         'join_nb': join_nb
     })
 
-def submission(request,pk):
+
+def submission_detail(request,pk):
     submission = get_object_or_404(Submission, pk=pk)
     environment = submission.environment
-    return render(request,'lb/submission.html',context={'submission':submission,
-                                                        'environment':environment,})
+    return render(request, 'lb/submission_detail.html', context={'submission':submission,
+                                                        'environment':environment, })
 
 def submission_bestrwards(request,pk):
     submission = get_object_or_404(Submission, pk=pk)

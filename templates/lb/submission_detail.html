@@ -4,13 +4,12 @@
 {% load comments_xtd %}
 
 {% block subthing %}
-<div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'lb:submission_detail' submission.pk %}">Overview</a>
+            <a class="nav-link active" href="{% url 'lb:submission_detail' submission.pk %}">Overview</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="{% url 'lb:submission_bestrwards' submission.pk %}">BestRwards</a>
+            <a class="nav-link" href="{% url 'lb:submission_bestrwards' submission.pk %}">BestRwards</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'lb:submission_episodes' submission.pk %}">Episodes</a>
@@ -20,8 +19,9 @@
         </li>
     </ul>
 	<div class="well well-lg">
-			<h3>BestRwards</h3>
-			<p>{{ submission.score }}</p>
-	</div>
-</div>
+	    <div class="tab-content">
+            <h3>Overview</h3>
+            <p>{{ submission.description|safe }}</p>
+	    </div>
+    </div>
 {% endblock subthing %}
