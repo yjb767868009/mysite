@@ -5,10 +5,10 @@ from . import views
 app_name='lb'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^environment/(?P<pk>[0-9]+)/Overview/$', views.environment, name='environment'),
+    url(r'^environment/(?P<pk>[0-9]+)/$', views.environment_detail, name='environment_detail'),
     url(r'^environment/(?P<pk>[0-9]+)/Discussion/$',  views.environment_discussion, name='environment_discussion'),
     url(r'^environment/(?P<pk>[0-9]+)/Leaderboard/$',  views.environment_leaderboard, name='environment_leaderboard'),
-    url(r'^environment/(?P<pk>[0-9]+)/Category/$',  views.environment_category, name='environment_category'),
+    url(r'^environment/(?P<pk>[0-9]+)/Download/$',  views.environment_download, name='environment_download'),
     url(r'^submission/(?P<pk>[0-9]+)/Overview/$', views.submission, name='submission'),
     url(r'^submission/(?P<pk>[0-9]+)/BestRwards/$', views.submission_bestrwards, name='submission_bestrwards'),
     url(r'^submission/(?P<pk>[0-9]+)/Episodes/$', views.submission_episodes, name='submission_episodes'),

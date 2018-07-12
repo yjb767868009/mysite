@@ -53,7 +53,7 @@ def account_detail(request,username):
                                                                 'submission_list':submission_list,
                                                                 'environment_list':environment_list})
 
-def environment(request,pk):
+def environment_detail(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
     environment.click_increase()
     category_list = environment.category.all()
@@ -62,7 +62,7 @@ def environment(request,pk):
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
-    return render(request,'lb/environment.html',context={'environment':environment,
+    return render(request, 'lb/environment_detail.html', context={'environment':environment,
                                                                 'join_nb':join_nb,
                                                                 'category_list':category_list,
                                                                 'submission_list':submission_list,
@@ -92,16 +92,14 @@ def environment_discussion(request,pk):
         'join_nb': join_nb
     })
 
-def environment_category(request,pk):
+def environment_download(request,pk):
     environment = get_object_or_404(Environment, pk=pk)
-    category_list = environment.category.all()
     participants_list = environment.participants.all()
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
     return render(request,'lb/environment_category.html',context={
         'environment':environment,
-        'category_list':category_list,
         'join_nb': join_nb
     })
 
@@ -210,7 +208,7 @@ def submit(request,pk):
             upload(form,request.user,environment,sub_name,request.FILES)
 
             messages.append('successed submit!')
-            return render(request,'lb/environment.html',context={'messages':messages,
+            return render(request, 'lb/environment_detail.html', context={'messages':messages,
                                                                  'environment': environment})
         else:
             messages.append('error1')

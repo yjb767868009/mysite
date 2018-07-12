@@ -37,10 +37,10 @@
                 {% for environment in environment_list %}
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
-                            <a href="{% url 'lb:environment' environment.pk%}"><img src="{{environment.images.url}}" alt=""></a>
+                            <a href="{% url 'lb:environment_detail' environment.pk%}"><img src="{{environment.images.url}}" alt=""></a>
                             <!-- Course Content -->
                             <div class="course-content">
-                                <a href="{% url 'lb:environment' environment.pk%}"><h4>{{ environment.name }}</h4></a>
+                                <a href="{% url 'lb:environment_detail' environment.pk%}"><h4>{{ environment.name }}</h4></a>
                                 <div class="meta d-flex align-items-center">
                                 {% for category in environment.category.all %}
                                     <a href="#">{{ category.name }}</a>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="course-fee h-100">
-                                    <a href="{% url 'lb:environment' environment.pk%}" class="free">Join</a>
+                                    <a href="{% url 'lb:environment_detail' environment.pk%}" class="free">Join</a>
                                 </div>
                             </div>
                         </div>

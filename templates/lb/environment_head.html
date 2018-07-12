@@ -4,30 +4,75 @@
 {% load comments_xtd %}
 {% block title %}{{ environment.name }}{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="media">
-            <div class="media-left" href="#">
-                <img class="media-object" src="{{environment.images.url}}" alt="images" style="width:400px">
+    <!-- ##### Single Course Intro Start ##### -->
+    <div class="single-course-intro d-flex align-items-center justify-content-center" style="background-image: url({{environment.images.url}});">
+        <!-- Content -->
+        <div class="single-course-intro-content text-center">
+            <h3>{{ environment.name }}</h3>
+            <div class="meta d-flex align-items-center justify-content-center">
+                <p>{{ environment.short_des }}</p>
             </div>
-            <div class="media-body">
-                <h1>{{ environment.name }}</h1>
-                <p>{{environment.short_des}}</p>
-                <p class="text-muted">passing line:{{ environment.passing_line }}</p>
-                <div class= "text-right" style="width:100;border:0px">
-                    <small class="text-muted">Participants:</small>
-                    <small class="text-muted">{{ join_nb }}</small>
+            <div class="price">{{ environment.solved }}</div>
+        </div>
+    </div>
+    <!-- ##### Single Course Intro End ##### -->
+
+    <!-- ##### Courses Content Start ##### -->
+    <div class="single-course-content section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="course--content">
+                        <div class="clever-tabs-content">
+                            {% block envthing %}
+                            {% endblock %}
+                        </div>
+                    </div>
                 </div>
-                <div class= "text-right" style="width:100;border:0px">
-                    <small class="text-muted">Pub date:</small>
-                    <small class="text-muted">{{ environment.pub_date }}</small>
-                </div>
-                <span class="badge badge-secondary">{{environment.solved}}</span>
-                <div class= "text-right" style="width:100;border:0px">
-                    <a href="{% url 'lb:submit' environment.pk %}"><button class="btn btn-primary">SUBMIT</button></a>
+
+                <div class="col-12 col-lg-4">
+                    <div class="course-sidebar">
+                        <!-- Buy Course -->
+                        <a href="{% url 'lb:submit' environment.pk %}" class="btn clever-btn mb-30 w-100">Submit</a>
+
+                        <!-- Widget -->
+                        <div class="sidebar-widget">
+                            <h4>Detail</h4>
+                            <ul class="features-list">
+                                <li>
+                                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> Passingline</h6>
+                                    <h6>{{ environment.passing_line }}</h6>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-bell" aria-hidden="true"></i> Participants</h6>
+                                    <h6>{{ join_nb }}</h6>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-file" aria-hidden="true"></i> PubDate</h6>
+                                    <h6>{{ environment.pub_date }}</h6>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Widget -->
+                        <div class="sidebar-widget">
+                            <h4>Category</h4>
+                            {% for category in category_list %}
+                                <div class="single--courses d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img src="{{ category.img.url }}" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <h5>{{ category.name }}</h5>
+                                        <h6>{{ category.des }}</h6>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        {% block envthing %}
-        {% endblock %}
     </div>
+    <!-- ##### Courses Content End ##### -->
 {% endblock %}

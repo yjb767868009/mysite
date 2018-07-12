@@ -1,0 +1,32 @@
+{% extends 'lb/environment_head.html' %}
+{% load staticfiles %}
+{% load comments %}
+{% load comments_xtd %}
+{% block envthing %}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'lb:environment_detail' environment.pk %}">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:environment_leaderboard' environment.pk %}">Leaderboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:environment_discussion' environment.pk %}">Discussion</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'lb:environment_download' environment.pk %}">Download</a>
+        </li>
+    </ul>
+
+    <div class="clever-description">
+
+        <!-- About Course -->
+        <div class="about-course mb-30">
+            <h4>Overview</h4>
+            <p>{{ environment.long_des|safe }}</p>
+        </div>
+
+    </div>
+
+{% endblock envthing %}
+
