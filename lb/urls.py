@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^environment/(?P<pk>[0-9]+)/Discussion/$',  views.environment_discussion, name='environment_discussion'),
     url(r'^environment/(?P<pk>[0-9]+)/Leaderboard/$',  views.environment_leaderboard, name='environment_leaderboard'),
     url(r'^environment/(?P<pk>[0-9]+)/Download/$',  views.environment_download, name='environment_download'),
+    url(r'^environment/(?P<pk>[0-9]+)/download_zip/$',  views.download_file, name='download'),
     url(r'^submission/(?P<pk>[0-9]+)/Overview/$', views.submission_detail, name='submission_detail'),
     url(r'^submission/(?P<pk>[0-9]+)/BestRwards/$', views.submission_bestrwards, name='submission_bestrwards'),
     url(r'^submission/(?P<pk>[0-9]+)/Episodes/$', views.submission_episodes, name='submission_episodes'),

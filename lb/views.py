@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, InvalidPage
 from .models import *
-import os
+from django.http import StreamingHttpResponse
+import os.path as osp
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
@@ -112,7 +113,7 @@ def environment_download(request,pk):
     join_nb = 0
     for _ in participants_list:
         join_nb=join_nb+1
-    return render(request,'lb/environment_category.html',context={
+    return render(request, 'lb/environment_download.html', context={
         'environment':environment,
         'category_list': category_list,
         'join_nb': join_nb
@@ -166,7 +167,7 @@ def upload(form, user, environment, sub_name, FILES):
     upload_path = "model/%s/%s/%s/" % (environment.name, user.username, sub_name)
     sub_time = datetime.datetime.now()
     sub_time_str = sub_time.strftime("%Y-%m-%d-%H-%M-%S-%f")
-    upload_path = os.path.join(upload_path, sub_time_str)
+    upload_path = osp.join(upload_path, sub_time_str)
     upload_path +='/'
     # print('upload_path = '+upload_path)
     if os.path.isdir(upload_path):
@@ -174,21 +175,21 @@ def upload(form, user, environment, sub_name, FILES):
     else:
         os.makedirs(upload_path)
     ckf = FILES.get("checkpoints_file", None)
-    with open(os.path.join(upload_path, "checkpoints"), "wb+") as destination:
+    with open(osp.join(upload_path, "checkpoints"), "wb+") as destination:
         for chunk in ckf.chunks():
             destination.write(chunk)
     pgf = FILES.get("test_program_file", None)
-    with open(os.path.join(upload_path, "test_program.py"), "wb+") as destination:
+    with open(osp.join(upload_path, "test_program.py"), "wb+") as destination:
         for chunk in pgf.chunks():
             destination.write(chunk)
-    file_path = os.path.dirname(os.path.abspath('manage.py'))
-    run_path = os.path.join(file_path, upload_path)
-    run_path = os.path.join(run_path, "test_program.py")
+    file_path = osp.dirname(os.path.abspath('manage.py'))
+    run_path = osp.join(file_path, upload_path)
+    run_path = osp.join(run_path, "test_program.py")
     run_commend = "python " + run_path + " --path " + upload_path
     print(run_commend)
     os.system(run_commend)
 
-    score_path = os.path.join(upload_path, 'score.txt')
+    score_path = osp.join(upload_path, 'score.txt')
     score_file = open(score_path, 'r')
     score = 0
     try:
@@ -224,8 +225,9 @@ def submit(request,pk):
             upload(form,request.user,environment,sub_name,request.FILES)
 
             messages.append('successed submit!')
-            return render(request, 'lb/environment_detail.html', context={'messages':messages,
-                                                                 'environment': environment})
+            return render(request, 'lb/environment_leaderboard.html', context={
+                'messages': messages,
+                'environment': environment})
         else:
             messages.append('error1')
     else:
@@ -234,3 +236,24 @@ def submit(request,pk):
         'form':form,
         'messages':messages,
         'environment':environment})
+
+
+def read_file(filename, chunk_size=512):
+    with open(filename,'rb') as f:
+        while True:
+            c = f.read(chunk_size)
+            if c:
+                yield c
+            else:
+                break
+
+
+def download_file(request,pk):
+    environment = get_object_or_404(Environment, pk=pk)
+    file_name = 'test_program.zip'
+    filename = osp.join('model',environment.name)
+    filename = osp.join(filename,file_name)
+    reponse = StreamingHttpResponse(read_file(filename))
+    reponse['Content-Type'] = 'application/octet-stream'
+    reponse['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_name)
+    return reponse

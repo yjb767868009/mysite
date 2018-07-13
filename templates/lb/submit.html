@@ -1,22 +1,34 @@
 {% extends 'lb/base.html' %}
 {% load crispy_forms_tags %}
-<p>submit</p>
+{% load staticfiles %}
 {% block content %}
-    <div><h4>Submit</h4></div>
-    {% if error_messages %}
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			    <ul>
-				    {% for message in error_messages %}
-				        <p>{{message}}</p>
-				    {% endfor %}
-			    </ul>
-		    </div>
-    {% endif %}
-    <form class="profile" method="post" enctype="multipart/form-data" action="{% url 'lb:submit' environment.pk %}">
-        {% csrf_token %}
-        {{ form |crispy }}
-        <input class="btn btn-primary" type="submit"/>
-	<a href="{% url 'lb:environment_detail' environment.pk %}"><button type="button" class="btn">CANCEL</button></a>
-    </form>
+<section style="background: url({% static 'img/core-img/texture.png' %});">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <div class="post-a-comments mb-70">
+                    <h4>Submit</h4>
+                    <div style="background-color: #ffffff;">
+                        {% if error_messages %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <ul>
+                                    {% for message in error_messages %}
+                                        <p>{{message}}</p>
+                                    {% endfor %}
+                                </ul>
+                        </div>
+                        {% endif %}
+                        <form class="form-group" method="post" enctype="multipart/form-data" action="{% url 'lb:submit' environment.pk %}">
+                            {% csrf_token %}
+                            {{ form |crispy }}
+                            <input class="btn clever-btn w-25" type="submit"/>
+                        <a href="{% url 'lb:environment_detail' environment.pk %}"><button type="button" class="clever-btn btn-2 w-25">CANCEL</button></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
