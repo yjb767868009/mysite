@@ -12,9 +12,16 @@ Assuming you use virtualenv, follow these steps to download and run the mysite i
     $ pip install -r requirement.txt
     $ python manage.py migrate
     $ python manage.py createsuperuser
-    $ ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/
+
+use nginx and gunicorn
+
+    $ ln -s mysite_nginx.conf /etc/nginx/sites-enabled/
     $ python manage.py collectstatic
     $ /etc/init.d/nginx restart 
 
     $ gunicorn --bind unix:/tmp/www.control-net.org.socket mysite.wsgi:application
 
+use apache2
+
+    $ ln -s mysite_apache2.conf /etc/apache2/sites-available/
+    $ sudo service apache2 start
