@@ -10,7 +10,8 @@ import os.path as osp
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
-logger = logging.getLogger('lb.views')
+import logging
+logger = logging.getLogger('django')
 
 def global_setting(request):
     return {'SITE_NAME':settings.SITE_NAME,'STIE_DESCP':settings.SITE_DESCP,'SITE_KEYWORDS':settings.SITE_KEYWORDS}
@@ -257,3 +258,5 @@ def download_file(request,pk):
     reponse['Content-Type'] = 'application/octet-stream'
     reponse['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_name)
     return reponse
+
+

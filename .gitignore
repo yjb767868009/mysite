@@ -5,3 +5,4 @@ upload
 .idea
 model
 /static/
+/mysite.log
